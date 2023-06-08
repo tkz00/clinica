@@ -1,0 +1,36 @@
+.home-container {
+    height: calc(100vh - 85px);
+    width: 100%;
+    background-image: url('/assets/images/background.png');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+  
+.home-content {
+    text-align: center;
+    color: #fff;
+}
+
+footer{
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    background-color: #979797;
+    padding: 20px 0;
+
+    .container{
+        height: 100%;
+        .row{
+            height: 100%;
+            div{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+        }
+    }
+}
+  

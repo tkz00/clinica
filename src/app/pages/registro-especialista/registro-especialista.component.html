@@ -1,0 +1,84 @@
+<div class="registration-container">
+    <ng-container *ngIf="!isLoading">
+        <div class="registration-form">
+        <h2>Registro especialista</h2>
+        <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="text" id="nombre" formControlName="nombre" placeholder="Nombre" class="form-control">
+                            <div *ngIf="registrationForm.controls['nombre'].invalid && (registrationForm.controls['nombre'].touched || submitted)" class="text-danger">
+                                <div *ngIf="registrationForm.controls['nombre'].hasError('required')">*</div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="email" id="email" formControlName="email" placeholder="Email" class="form-control">
+                            <div *ngIf="registrationForm.controls['email'].invalid && (registrationForm.controls['email'].touched || submitted)" class="text-danger">
+                                <div *ngIf="registrationForm.controls['email'].hasError('required')">*</div>
+                                <div *ngIf="registrationForm.controls['email'].hasError('email')">Email con formato inválido</div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="number" id="edad" formControlName="edad" placeholder="Edad" class="form-control">
+                            <div *ngIf="registrationForm.controls['edad'].invalid && (registrationForm.controls['edad'].touched || submitted)" class="text-danger">
+                                <div *ngIf="registrationForm.controls['edad'].hasError('required')">*</div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="text" id="apellido" formControlName="apellido" placeholder="Apellido" class="form-control">
+                            <div *ngIf="registrationForm.controls['apellido'].invalid && (registrationForm.controls['apellido'].touched || submitted)" class="text-danger">
+                                <div *ngIf="registrationForm.controls['apellido'].hasError('required')">*</div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="password" id="password" formControlName="password" placeholder="Contraseña" class="form-control">
+                            <div *ngIf="registrationForm.controls['password'].invalid && (registrationForm.controls['password'].touched || submitted)" class="text-danger">
+                                <div *ngIf="registrationForm.controls['password'].hasError('required')">*</div>
+                                <div *ngIf="registrationForm.controls['password'].hasError('minlength')">La contraseña debe tener al menos 6 caracteres</div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="number" id="dni" formControlName="dni" placeholder="DNI" class="form-control">
+                            <div *ngIf="registrationForm.controls['dni'].invalid && (registrationForm.controls['dni'].touched || submitted)" class="text-danger">
+                                <div *ngIf="registrationForm.controls['dni'].hasError('required')">*</div>
+                                <div *ngIf="registrationForm.controls['dni'].hasError('pattern')">El DNI debe ser un numero de 7 u 8 dígitos</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 especialidad-row">
+                        <div class="form-group col-md-6">
+                            <label for="imagen">Imagen:</label>
+                            <input type="file" (change)="handleFileInput($event)" accept="image/*" id="imagen" class="form-control">
+                            <div *ngIf="registrationForm.controls['imagen'].invalid && (registrationForm.controls['imagen'].touched || submitted)" class="text-danger">
+                                <div *ngIf="registrationForm.controls['imagen'].hasError('required')">*</div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group col-md-6">
+                        <app-especialidades-selector (especialidadSeleccionada)="onEspecialidadSelected($event)"></app-especialidades-selector>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Registrarse</button>
+                    <div>
+                        <p>¿Deseas registrarte como paciente? <a routerLink="/registro-paciente">¡Has click aquí!</a></p>
+                    </div>
+                </div>
+        </form>
+        </div>
+    </ng-container>
+
+    <ng-container *ngIf="isLoading">
+        <div class="spinner-container">
+          <div class="spinner"></div>
+        </div>
+    </ng-container>
+  </div>

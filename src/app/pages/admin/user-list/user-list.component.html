@@ -1,0 +1,54 @@
+<div class="container">
+    <div class="table-container">
+        <div class="row buttons-container">
+            <div class="col-md-4">
+                <button class="btn btn-primary" routerLink="/registro-paciente">Crear paciente</button>
+            </div>
+            <div class="col-md-4">
+                <button class="btn btn-warning" routerLink="/registro-especialista">Crear especialista</button>
+            </div>
+            <div class="col-md-4">
+                <button class="btn btn-success" routerLink="/admin/registro-admin">Crear administrador</button>
+            </div>
+        </div>
+        <ng-container *ngIf="!isLoading">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Tipo</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Edad</th>
+                        <th>DNI</th>
+                        <th>Mail</th>
+                        <th>Habilitado</th>
+                        <!-- <th>Email Verificado</th> -->
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let user of users">
+                        <td>{{ user.type }}</td>
+                        <td>{{ user.nombre }}</td>
+                        <td>{{ user.apellido }}</td>
+                        <td>{{ user.edad }}</td>
+                        <td>{{ user.dni }}</td>
+                        <td>{{ user.email }}</td>
+                        <td [ngStyle]="user.type !== 'especialista' ? { 'background-color': '#b3b3b3' } : {}">
+                            <input *ngIf="user.type == 'especialista'" type="checkbox" [(ngModel)]="user.enabled" (ngModelChange)="onEnabledChange($event, user.id)">
+                        </td>
+                        <!-- <td>
+                            <input type="checkbox" [(ngModel)]="user.verified">
+                        </td> -->
+                    </tr>
+                </tbody>
+            </table>
+        </ng-container>
+
+        <ng-container *ngIf="isLoading">
+            <div class="spinner-container">
+              <div class="spinner"></div>
+            </div>
+        </ng-container>
+    </div>
+</div>
+  

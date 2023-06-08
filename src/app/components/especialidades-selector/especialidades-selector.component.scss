@@ -1,0 +1,14 @@
+.select-especialidad{
+    *{
+        margin: 5px 0;
+    }
+}
+
+.create-especialidad{
+    display: flex;
+    flex-direction: row;
+
+    input{
+        margin-right: 10px;
+    }
+}

@@ -1,0 +1,28 @@
+<div class="home-container">
+    <div class="home-content"></div>
+
+    <footer class="footer">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-3">
+                <h3>Conoce a nuestros profesionales</h3>
+                <p></p>
+                <button class="btn btn-primary">Ver Especialistas</button>
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-3">
+                <h3>Contacto</h3>
+                <p></p>
+                <button class="btn btn-primary">Contacto</button>
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-3" *ngIf="isAdmin">
+                <h3>¿Eres administrador?</h3>
+                <p>Accede al backoffice</p>
+                <button class="btn btn-primary" routerLink="/admin">Ir al Admin Dashboard</button>
+            </div>
+          </div>
+        </div>
+      </footer>
+  </div>
+  

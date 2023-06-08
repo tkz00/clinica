@@ -1,0 +1,14 @@
+<div class="select-especialidad">
+    <label for="especialidad">Especialidad:</label>
+    <div>
+      <div class="create-especialidad">
+        <input type="text" [formControl]="searchInput" (input)="filterEspecialidades()" placeholder="Buscar o crear nueva especialidad." class="form-control">
+        <button type="button" class="btn btn-primary" (click)="createEspecialidad()">Crear</button>
+      </div>
+      <select id="especialidad" [formControl]="selectedEspecialidad" class="form-control" (change)="onEspecialidadSelected()">
+        <!-- <option *ngFor="let especialidad of filteredEspecialidades | async" [value]="especialidad">{{ especialidad }}</option> -->
+        <option *ngFor="let especialidad of filteredEspecialidades" [value]="especialidad">{{ especialidad }}</option>
+      </select>
+    </div>
+  </div>
+  
