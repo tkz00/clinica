@@ -10,8 +10,6 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
 export class ImagesService {
 
   constructor(
-    private authService: AuthService,
-    private firestore: Firestore,
     private afStorage: AngularFireStorage
   ) { }
 

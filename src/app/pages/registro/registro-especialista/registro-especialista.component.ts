@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { from } from 'rxjs';
@@ -15,7 +15,8 @@ export class RegistroEspecialistaComponent implements OnInit {
 
   registrationForm: FormGroup;
   submitted = false;
-  isLoading = false;
+  @Output() isLoadingChanged = new EventEmitter<boolean>();
+  @Output() goToPacientes = new EventEmitter();
 
   constructor(
     private formBuilder: FormBuilder,
@@ -39,7 +40,7 @@ export class RegistroEspecialistaComponent implements OnInit {
   }
 
   async onSubmit() {
-    this.isLoading = true;
+    this.changeIsLoading(true);
     this.submitted = true;
 
     if (this.registrationForm.invalid) {
@@ -63,7 +64,7 @@ export class RegistroEspecialistaComponent implements OnInit {
 
     await this.userService.adduser(newUser);
 
-    this.isLoading = false;
+    this.changeIsLoading(false);
 
     this.router.navigate(['/']);
   }
@@ -77,5 +78,13 @@ export class RegistroEspecialistaComponent implements OnInit {
   handleFileInput(event: any) {
     const file = event.target.files[0];
     this.registrationForm.get('imagen')!.setValue(file);
+  }
+
+  changeIsLoading(newValue: boolean) {
+    this.isLoadingChanged.emit(newValue);
+  }
+
+  changePage() {
+    this.goToPacientes.emit();
   }
 }

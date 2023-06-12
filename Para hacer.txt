@@ -1,0 +1,18 @@
+* Botones de Acceso rápido
+- Deben ser botones rectangulares.
+- Deben tener la imagen de perfil del usuario
+- Deben estar arriba del login, uno al lado del otro, 6 usuarios (3 pacientes, 2 especialistas, 1 admin)
+
+* Registro de usuarios
+- Al ingresar a la página solo se deben ver 2 imágenes que represente a un paciente o especialista, según esa elección mostrará un formulario correspondiente
+	(¿página registro con componentes <registro-paciente>,
+<registro-especialista> cada unos de los componentes con su form y su lógica que vaya cambiando con dírectivas en base al botón seleccionado?).
+- Estas imágenes deben estar en botones rectangulares.
+
+PARA EVITAR LOGIN CUANDO SE REGISTRA:
+provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideFirebaseApp(() => initializeApp(environment.firebase, 'Secondary')),
+
+Hacer carousel para las imagenes en la sección "Mi Perfil"
+
+Para crear un turno tiene que ser de las próximas dos semanas

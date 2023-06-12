@@ -2,10 +2,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: calc(100vh - 85px);
-    background-image: url('/assets/images/background.png');
-    background-size: cover;
-    background-position: center;
 }
   
 .registration-form {
@@ -66,4 +62,10 @@
     100% {
       transform: rotate(360deg);
     }
+}
+
+a {
+    color: rgba(var(--bs-link-color-rgb),var(--bs-link-opacity,1))!important;
+    text-decoration: underline!important;
+    cursor: pointer!important;
 }

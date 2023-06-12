@@ -1,0 +1,53 @@
+.profile-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 85px);
+    background-image: url('/assets/images/background.png');
+    background-size: cover;
+    background-position: center;
+
+    .profile-container {
+        width: 70%;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background-color: #b3b3b3;
+    }
+
+    .card {
+
+        .card-body {
+            
+            .card-title {
+                text-align: center;
+            }
+        }
+    }
+
+    .availability-grid {
+        width: 100%;
+        border-collapse: collapse;
+
+        .available-cell {
+            background: #73be48;
+        }
+    }
+      
+    .availability-grid th,
+    .availability-grid td {
+        padding: 5px;
+        text-align: center;
+        border: 1px solid #ccc;
+    }
+      
+    .available {
+        display: block;
+        width: 8px;
+        height: 8px;
+        background-color: green;
+        border-radius: 50%;
+        margin: 0 auto;
+    }
+      
+}

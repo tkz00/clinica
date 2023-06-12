@@ -42,4 +42,15 @@ export class UserService {
       )
       .toPromise();
   }
+
+  async updateHorario(userId: string, horario: any) {
+    await updateDoc(doc(this.firestore2, 'users', userId), {
+      horarios: horario
+    });
+  }
+
+  async getEspecialistas() {
+    const r = (await this.getUsers()).filter(especialista => especialista['type'] == 'especialista' && especialista['enabled'] && especialista['verified']);
+    return r;
+  }
 }

@@ -1,0 +1,60 @@
+<div class="turnos-page">
+    <div class="turnos-container" *ngIf="!isLoading">
+        <h2>Solicitar Turno</h2>
+
+        <form [formGroup]="turnoForm" (ngSubmit)="onSubmit()">
+
+            <label>Especialidad:</label>
+            <ng-select [items]="especialidades"
+                    formControlName="especialidad"
+                    [searchable]="true"
+                    placeholder="Elegí una especialidad"
+                    (change)="onSelectEspecialidad($event)">
+                <ng-template ng-option-tmp let-item="item" let-index="index">
+                    {{ item }}
+                </ng-template>
+            </ng-select>
+
+            <label>Especialista:</label>
+            <ng-select [items]="filteredEspecialistas"
+                    formControlName="especialista"
+                    bindLabel="nombre" 
+                    [searchable]="true"
+                    placeholder="Elegí un especialista"
+                    (change)="onSelectEspecialista($event)">
+            </ng-select>
+
+            <div *ngIf="selectedEspecialista">
+                <h4>Horarios (disponibles en verde)</h4>
+
+                <table class="availability-grid">
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th *ngFor="let day of daysOfWeek">{{ day }}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let hour of hoursOfDay">
+                      <th>{{ hour }}</th>
+                      <td *ngFor="let day of daysOfWeek" [class.available-cell]="isAvailable(day, hour)" [id]="day + '-' + hour" class="time-button">
+                        <label *ngIf="isAvailable(day, hour)">
+                          <input type="checkbox" (change)="selectHorario(day, hour)" [value]="hour">
+                        </label>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
+
+            <!-- <button *ngIf="!isLoading" type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">Login</button> -->
+            <button type="submit" class="btn btn-primary submit-button" [disabled]="turnoForm.invalid">Solicitar turno</button>
+        </form>
+    </div>
+
+    <ng-container *ngIf="isLoading">
+        <div class="spinner-container">
+          <div class="spinner"></div>
+        </div>
+    </ng-container>
+</div>

@@ -1,0 +1,35 @@
+<div class="registration-container">
+    <div class="registration-form" *ngIf="!isLoading">
+        <h2 *ngIf="!currentComponent">Registro</h2>
+        <div *ngIf="!currentComponent" class="row redirection-buttons">
+            <div class="col-md-6">
+                <img src="/assets/images/especialistas.jpg" alt="especialistas" (click)="goToEspecialistas()">
+            </div>
+            <div class="col-md-6">
+                <img src="/assets/images/pacientes.jpg" alt="pacientes" (click)="goToPacientes()">
+            </div>
+        </div>
+
+        <!-- <form>
+            <re-captcha [(ngModel)]="captchaResponse" name="recaptcha" siteKey="6LcxSowmAAAAAA7FJV91uDLaT2cNUj0fABe2vQSH"></re-captcha>
+        </form> -->
+
+        <app-registro-especialista
+            *ngIf="currentComponent === 'especialistas'"
+            (goToPacientes)="goToPacientes()"
+            (isLoadingChanged)="changeIsLoading($event)">
+        </app-registro-especialista>
+
+        <app-registro-paciente
+            *ngIf="currentComponent === 'pacientes'"
+            (goToEspecialistas)="goToEspecialistas()"
+            (isLoadingChanged)="changeIsLoading($event)">
+        </app-registro-paciente>
+    </div>
+
+    <ng-container *ngIf="isLoading">
+        <div class="spinner-container">
+          <div class="spinner"></div>
+        </div>
+    </ng-container>
+</div>

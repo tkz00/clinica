@@ -8,7 +8,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class AuthService {
 
-  userFirebase: any; // no se si voy a necesitar esto
+  // userFirebase: any; // no se si voy a necesitar esto
   usuarioDB: any;
 
   isLoggedInSubject = new BehaviorSubject<boolean>(false);

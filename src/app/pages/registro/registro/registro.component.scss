@@ -6,31 +6,30 @@
     background-image: url('/assets/images/background.png');
     background-size: cover;
     background-position: center;
-}
-  
-.registration-form {
-    width: 70%;
-    // height: 70%;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    background-color: #b3b3b3;
 
-    h2 {
-        text-align: center;
-        margin-bottom: 20px;
+    .registration-form {
+        width: 70%;
+        // height: 70%;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background-color: #b3b3b3;
+    
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .redirection-buttons {
+            display: flex;
+            flex-direction: row;
+
+            img {
+                max-width: 100%;
+                cursor: pointer;
+            }
+        }
     }
-}
-  
-.form-group {
-    margin-bottom: 15px;
-}
-
-.form-control {
-    width: 100%;
-    padding: 8px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
 }
 
 .spinner-container {

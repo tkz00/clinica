@@ -1,0 +1,60 @@
+<div class="profile-page">
+    <div class="profile-container">
+        <div class="container">
+            <div class="card">
+              <div class="card-body">
+                <h2 class="card-title">Mi Perfil</h2>
+                <div class="row">
+                  <div class="col-md-4">
+                    <div *ngFor="let image of user.images">
+                        <img [src]="image" alt="User Avatar" class="img-fluid">
+                    </div>
+                      
+                  </div>
+                  <div class="col-md-8">
+                    <!-- <h6 class="card-subtitle mb-2 text-muted"><strong>Nombre:</strong> {{ user.nombre + " " + user.apellido }}</h6> -->
+                    <p class="card-text">
+                        <strong>Nombre:</strong> {{ user.nombre + " " +  user.apellido }} <br>
+                        <strong>Email:</strong> {{ user.email }}<br>
+                        <strong>DNI:</strong> {{ user.dni }}<br>
+                        <strong>Edad:</strong> {{ user.edad }}<br>
+                        <strong>Obra social:</strong> {{ user.obraSocial }}<br>
+                    </p>
+                  </div>
+                </div>
+                <!-- <hr>
+                <h6 class="card-subtitle mb-2 text-muted">About Me</h6>
+                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ut elit feugiat, commodo elit vel, volutpat lacus. Vivamus vel purus vitae ante tempor cursus eu a odio. Morbi at efficitur ligula.</p>
+                <a href="#" class="card-link">Edit Profile</a> -->
+
+                <div *ngIf="user.type === 'especialista'">
+                    <h2>Horarios</h2>
+
+                    <table class="availability-grid">
+                      <thead>
+                        <tr>
+                          <th></th>
+                          <th *ngFor="let day of daysOfWeek">{{ day }}</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let hour of hoursOfDay">
+                          <th>{{ hour }}</th>
+                          <td *ngFor="let day of daysOfWeek" [class.available-cell]="isAvailable(day, hour)">
+                            <label>
+                              <input type="checkbox" [checked]="isAvailable(day, hour)" (change)="toggleAvailability(day, hour)" [value]="hour">
+                              <!-- <span [class.available]="isAvailable(day, hour)"></span> -->
+                            </label>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    
+                    <!-- <pre>{{ availability | json }}</pre> -->
+                    
+                </div>
+              </div>
+            </div>
+          </div>
+    </div>
+</div>
