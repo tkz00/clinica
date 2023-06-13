@@ -1,27 +1,59 @@
 # Clinica
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.8.
+Este documento contiene la descripción y modo de utilizar la aplicación.
 
-## Development server
+## Servidor de desarrollo
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Si se desea correr la aplicación en modo de desarrollo se debe ejecutar el comando `ng serve` en la raíz del projecto y navegar a `http://localhost:4200/`.
 
-## Code scaffolding
+# Sitio web
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+La aplicación está desplegada en este link [Clinica](https://clinica-9f1c7.web.app).
 
-## Build
+## Página principal
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+El home de la aplicación, dentro de esta se puede acceder a todas las secciónes que se desee.
+![Página Principal](paginaPrincipal.jpg)
 
-## Running unit tests
+# Autenticacíon
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Login
 
-## Running end-to-end tests
+Desde esta pantalla el usuario puede ingresar sus credenciales para acceder al sistema.
+![Login](login.jpg)
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## Registro
 
-## Further help
+En esta seeción el usuario puede crear su cuenta, debe elegir el tipo de usuario que será (paciente o especialista) y completar los datos requeridos.
+![Registro](registro.jpg)
+![Registro Paciente](registro paciente.jpg)
+![Registro Especialista](registro especialista.jpg)
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## Mi Perfil
+
+Ingresando a través del botón en el navbar, uno puede acceder a los detalles de su perfil, ver sus fotos y sus datos, además los especialistas pueden modificar los horarios en los que se encuentran disponibles para sus turnos.
+![Mi Perfil](mi perfil.jpg)
+![Mi Perfil](mi perfil especialista.jpg)
+
+# Turnos
+
+## Solicitar turno
+
+Desde aquí el paciente o administrador puede crear turnos eligiendo el paciente (en caso del administrador), la especialidad, el especialista y la fecha y horario del turno.
+![Solicitar turno](solicitar turno.jpg)
+![Solicitar turno](solicitar turno 2.jpg)
+
+## Ver turnos
+
+El paciente, especialista o administrador puede ver los turnos que le corresponden y realizar acciones sobre los mismos.
+![Turnos](lista turnos.jpg)
+
+# Admin
+
+Los usuarios administradores pueden acceder al backoffice de la aplicación, donde se pueden controlar distintos aspectos de la misma.
+![Admin Home](admin home.jpg)
+
+## Lista de Usuarios
+
+Los adminsitradores tienen acceso a la lista de usuarios completa de la aplicación.
+![Lista de Usuarios](user list admin.jpg)

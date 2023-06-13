@@ -1,0 +1,46 @@
+<div class="dashboard-container">
+
+    <div class="turnos-container">
+        <h2>LISTA TURNOS</h2>
+
+        <input type="text" [(ngModel)]="searchValue" placeholder="Buscar..." (input)="filterItems()">
+        <table class="table">
+            <thead>
+              <tr>
+                <th>Paciente</th>
+                <th>Especialista</th>
+                <th>Especialidad</th>
+                <th>Fecha y Hora</th>
+                <th>Estado</th>
+                <th>Controles</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let turno of filteredTurnos" [id]="'turn-' + turno.id">
+                <td>{{ turno.data.paciente.nombre + " " + turno.data.paciente.apellido  }}</td>
+                <td>{{ turno.data.especialista.nombre + " " + turno.data.especialista.apellido }}</td>
+                <td>{{ turno.data.especialidad }}</td>
+                <td class="dateTime">{{ turno.data.fechaHora.toDate() | date:'hh:mm dd/MM/YYYY' }}</td>
+                <td>
+                    <span class="badge" [ngClass]="{
+                        'badge-danger': turno.data.estado === 'cancelado',
+                        'badge-primary': turno.data.estado === 'aceptado',
+                        'badge-warning': turno.data.estado === 'pendiente',
+                        'badge-dark': turno.data.estado === 'rechazado',
+                        'badge-success': turno.data.estado === 'realizado'
+                    }">
+                        {{ turno.data.estado.charAt(0).toUpperCase() + turno.data.estado.slice(1) }}
+                    </span>
+                </td>
+                <td>
+                    <button *ngIf="turno.data.estado === 'pendiente'" class="btn btn-link" (click)="cancelTurn(turno.id)">
+                        <i class="bi bi-x-circle" style="color: red;"></i>
+                    </button>
+                  </td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+
+    <app-admin-footer style="width: 100%;"></app-admin-footer>
+</div>

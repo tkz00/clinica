@@ -11,7 +11,8 @@ export class MyProfileComponent implements OnInit {
   user: any;
 
   daysOfWeek: string[] = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sábado'];
-  hoursOfDay: string[] = ['9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm'];
+  hoursOfDay: string[] = ['8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm'];
+  saturdayHours: string[] = ['8am', '9am', '10am', '11am', '12pm', '1pm', '2pm']
   availability: { [day: string]: string[] } = {};
 
   constructor(

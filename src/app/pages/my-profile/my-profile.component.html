@@ -6,11 +6,17 @@
                 <h2 class="card-title">Mi Perfil</h2>
                 <div class="row">
                   <div class="col-md-4">
-                    <div *ngFor="let image of user.images">
-                        <img [src]="image" alt="User Avatar" class="img-fluid">
-                    </div>
                       
+                    <ngb-carousel>
+                      <ng-template ngbSlide *ngFor="let image of user.images">
+                        <div class="picsum-img-wrapper">
+                          <img [src]="image" height="200" alt="Imagen de perfil" />
+                        </div>
+                      </ng-template>
+                    </ngb-carousel>
+
                   </div>
+
                   <div class="col-md-8">
                     <!-- <h6 class="card-subtitle mb-2 text-muted"><strong>Nombre:</strong> {{ user.nombre + " " + user.apellido }}</h6> -->
                     <p class="card-text">
@@ -22,11 +28,6 @@
                     </p>
                   </div>
                 </div>
-                <!-- <hr>
-                <h6 class="card-subtitle mb-2 text-muted">About Me</h6>
-                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ut elit feugiat, commodo elit vel, volutpat lacus. Vivamus vel purus vitae ante tempor cursus eu a odio. Morbi at efficitur ligula.</p>
-                <a href="#" class="card-link">Edit Profile</a> -->
-
                 <div *ngIf="user.type === 'especialista'">
                     <h2>Horarios</h2>
 
@@ -41,20 +42,20 @@
                         <tr *ngFor="let hour of hoursOfDay">
                           <th>{{ hour }}</th>
                           <td *ngFor="let day of daysOfWeek" [class.available-cell]="isAvailable(day, hour)">
-                            <label>
+                            <label *ngIf="day !== 'Sábado' || (day === 'Sábado' && saturdayHours.includes(hour))">
                               <input type="checkbox" [checked]="isAvailable(day, hour)" (change)="toggleAvailability(day, hour)" [value]="hour">
-                              <!-- <span [class.available]="isAvailable(day, hour)"></span> -->
                             </label>
                           </td>
                         </tr>
                       </tbody>
                     </table>
                     
-                    <!-- <pre>{{ availability | json }}</pre> -->
                     
                 </div>
               </div>
             </div>
           </div>
     </div>
+
+    <app-footer style="width: 100%;"></app-footer>
 </div>

@@ -24,6 +24,11 @@ import { RECAPTCHA_SETTINGS, RecaptchaFormsModule, RecaptchaModule, RecaptchaSet
 import { MyProfileComponent } from './pages/my-profile/my-profile.component';
 import { SolicitarTurnoComponent } from './pages/turnos/solicitar-turno/solicitar-turno.component';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { NgbModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { TurnosComponent } from './pages/admin/turnos/turnos.component';
+import { MisTurnosComponent } from './pages/turnos/mis-turnos/mis-turnos.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { AdminFooterComponent } from './pages/admin/components/admin-footer/admin-footer.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +44,11 @@ import { NgSelectModule } from '@ng-select/ng-select';
     RegistroAdminComponent,
     RegistroComponent,
     MyProfileComponent,
-    SolicitarTurnoComponent
+    SolicitarTurnoComponent,
+    TurnosComponent,
+    MisTurnosComponent,
+    FooterComponent,
+    AdminFooterComponent
   ],
   imports: [
     BrowserModule,
@@ -51,7 +60,9 @@ import { NgSelectModule } from '@ng-select/ng-select';
     provideFirestore(() => getFirestore()),
     RecaptchaModule,
     RecaptchaFormsModule,
-    NgSelectModule
+    NgSelectModule,
+    NgbModule,
+    NgbTooltipModule
   ],
   providers: [
     {

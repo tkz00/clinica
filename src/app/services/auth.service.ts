@@ -24,7 +24,7 @@ export class AuthService {
       async e => {
         this.usuarioDB = await this.userService.getUserById(e.user?.uid!);
 
-        if (this.usuarioDB.type === 'especialista' && !this.usuarioDB.enabled && !this.usuarioDB.verified) {
+        if (this.usuarioDB.type === 'especialista' && (!this.usuarioDB.enabled || !this.usuarioDB.verified)) {
           this.af.signOut();
           this.usuarioDB = null;
           throw new Error('Usuario especialista no está validado por un administrador o no ha sido verificado, por favor revise su mail (revisar casilla de spam).');

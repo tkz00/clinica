@@ -1,29 +1,10 @@
 .dashboard-container {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: space-around;
     align-items: center;
     height: calc(100vh - 85px);
     background-image: url('/assets/images/background.png');
     background-size: cover;
     background-position: center;
-}
-
-footer{
-    width: 100%;
-    position: absolute;
-    bottom: 0;
-    background-color: #979797;
-    padding: 20px 0;
-
-    .container{
-        height: 100%;
-        .row{
-            height: 100%;
-            div{
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-            }
-        }
-    }
 }

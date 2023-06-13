@@ -1,4 +1,4 @@
-<div class="container">
+<div class="user-list-page">
     <div class="table-container">
         <div class="row buttons-container">
             <div class="col-md-4">
@@ -33,7 +33,7 @@
                         <td>{{ user.edad }}</td>
                         <td>{{ user.dni }}</td>
                         <td>{{ user.email }}</td>
-                        <td [ngStyle]="user.type !== 'especialista' ? { 'background-color': '#b3b3b3' } : {}">
+                        <td style="text-align: center;" [ngStyle]="user.type !== 'especialista' ? { 'background-color': '#b3b3b3' } : {}">
                             <input *ngIf="user.type == 'especialista'" type="checkbox" [(ngModel)]="user.enabled" (ngModelChange)="onEnabledChange($event, user.id)">
                         </td>
                         <!-- <td>
@@ -50,5 +50,7 @@
             </div>
         </ng-container>
     </div>
+
+    <app-admin-footer style="width: 100%;"></app-admin-footer>
 </div>
   

@@ -1,0 +1,80 @@
+<div class="turnos-page">
+
+    <div class="turnos-container">
+        <h2>LISTA TURNOS</h2>
+
+        <input type="text" [(ngModel)]="searchValue" placeholder="Buscar..." (input)="filterItems()">
+        <table class="table">
+            <thead>
+              <tr>
+                <th>Paciente</th>
+                <th>Especialista</th>
+                <th>Especialidad</th>
+                <th>Fecha y Hora</th>
+                <th>Estado</th>
+                <th>Controles</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let turno of filteredTurnos" [id]="'turn-' + turno.id">
+                <td>{{ turno.data.paciente.nombre + " " + turno.data.paciente.apellido  }}</td>
+                <td>{{ turno.data.especialista.nombre + " " + turno.data.especialista.apellido }}</td>
+                <td>{{ turno.data.especialidad }}</td>
+                <td class="dateTime">{{ turno.data.fechaHora.toDate() | date:'hh:mm dd/MM/YYYY' }}</td>
+                <td>
+                    <span class="badge" [ngClass]="{
+                      'badge-danger': turno.data.estado === 'cancelado',
+                      'badge-primary': turno.data.estado === 'aceptado',
+                      'badge-warning': turno.data.estado === 'pendiente',
+                      'badge-dark': turno.data.estado === 'rechazado',
+                      'badge-success': turno.data.estado === 'realizado'
+                    }">
+                      {{ turno.data.estado.charAt(0).toUpperCase() + turno.data.estado.slice(1) }}
+                    </span>
+                </td>
+
+                <td>
+                  <!-- BOTÓNES PACIENTE -->
+                  <ng-container *ngIf="!isEspecialista">
+                      <button *ngIf="turno.data.estado !== 'realizado'" class="btn btn-link" (click)="cancelTurn(turno.id)" placement="top" ngbTooltip="Cancelar">
+                          <i class="bi bi-x-circle" style="color: red;"></i>
+                      </button>
+                      <button *ngIf="turno.data.estado === 'realizado' && turno.data.review" class="btn btn-link" (click)="completeSurvey(turno.id)" placement="top" ngbTooltip="Completar encuesta">
+                        <i class="bi bi-pencil" style="color: #252525;"></i>
+                      </button>
+                      <button *ngIf="turno.data.estado === 'realizado'" class="btn btn-link" (click)="rateTurn(turno.id)" placement="top" ngbTooltip="Calificar Atención">
+                        <i class="bi bi-star-half" style="color: blue;"></i>
+                      </button>
+                  </ng-container>
+
+                  <!-- BOTÓNES ESPECIALISTA -->
+                  <ng-container *ngIf="isEspecialista">
+                      <button *ngIf="turno.data.estado === 'pendiente'" class="btn btn-link" (click)="cancelTurn(turno.id)" placement="top" ngbTooltip="Cancelar">
+                          <i class="bi bi-x-circle" style="color: red;"></i>
+                      </button>
+                      <button *ngIf="turno.data.estado === 'pendiente'" class="btn btn-link" (click)="rejectTurn(turno.id)" placement="top" ngbTooltip="Rechazar turno">
+                        <i class="bi bi-eraser" style="color: red;"></i>
+                      </button>
+                      <button *ngIf="turno.data.estado !== 'cancelado' && turno.data.estado !== 'realizado' && turno.data.estado !== 'rechazado'" class="btn btn-link" (click)="acceptTurn(turno.id)" placement="top" ngbTooltip="Aceptar turno">
+                        <i class="bi bi-check-circle" style="color: blue;"></i>
+                      </button>
+                      <button *ngIf="turno.data.estado === 'aceptado'" class="btn btn-link" (click)="finalizeTurn(turno.id)" placement="top" ngbTooltip="Finalizar Turno">
+                        <i class="bi bi-archive" style="color: darkorange;"></i>
+                      </button>
+                  </ng-container>
+
+                  <button *ngIf="turno.data.cancelMessage" class="btn btn-link" (click)="seeReview(turno)" placement="top" ngbTooltip="Ver mensaje">
+                    <i class="bi bi-envelope-x" style="color: darkorange;"></i>
+                  </button>
+
+                  <button *ngIf="turno.data.review" class="btn btn-link" (click)="seeReview(turno)" placement="top" ngbTooltip="Ver reseña">
+                    <i class="bi bi-clipboard-pulse" style="color: green;"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+
+    <app-footer style="width: 100%;"></app-footer>
+</div>

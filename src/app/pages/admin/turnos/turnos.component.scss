@@ -1,0 +1,56 @@
+.dashboard-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: calc(100vh - 85px);
+    background-image: url('/assets/images/background.png');
+    background-size: cover;
+    background-position: center;
+
+    .turnos-container {
+        width: 70%;
+        // height: 50%;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background-color: #b3b3b3;
+
+        input {
+            float: right;
+            padding: 5px;
+            border-radius: 20px;
+            width: 30%;
+            margin-bottom: 10px;
+        }
+
+        .table {
+            td {
+                .badge-danger {
+                    color: #fff;
+                    background-color: red;
+                }
+
+                .badge-warning {
+                    color: #212529;
+                    background-color: #ffc107;
+                }
+
+                .badge-primary {
+                    color: #fff;
+                    background-color: #007bff;
+                }
+
+                .badge-dark {
+                    color: #fff;
+                    background-color: #343a40;
+                }
+
+                .badge-success {
+                    color: #fff;
+                    background-color: #28a745;
+                }
+            }
+        }
+    }
+}

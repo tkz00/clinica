@@ -1,14 +1,17 @@
 .profile-page {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: space-around;
     align-items: center;
-    height: calc(100vh - 85px);
+    height: calc(100vh - 200px);
     background-image: url('/assets/images/background.png');
     background-size: cover;
     background-position: center;
+    overflow-y: auto;
 
     .profile-container {
         width: 70%;
+        margin: 200px 0 100px 0;
         padding: 20px;
         border: 1px solid #ccc;
         border-radius: 4px;
@@ -21,6 +24,24 @@
             
             .card-title {
                 text-align: center;
+            }
+
+            .carousel-inner {
+                height: 0;
+                padding-bottom: 25%; /* this sets carousel aspect ratio (4:1 here) */
+              }
+              
+            .carousel-item {
+                position: absolute !important; /* Bootstrap is insistent */
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+            }
+              
+            .carousel-item img {
+                height: 100%; /* Bootstrap handles width already */
+                object-fit: cover; /* or 'contain' if you want stretch instead of crop */
             }
         }
     }

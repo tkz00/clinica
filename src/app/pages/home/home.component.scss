@@ -13,24 +13,4 @@
     text-align: center;
     color: #fff;
 }
-
-footer{
-    width: 100%;
-    position: absolute;
-    bottom: 0;
-    background-color: #979797;
-    padding: 20px 0;
-
-    .container{
-        height: 100%;
-        .row{
-            height: 100%;
-            div{
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-            }
-        }
-    }
-}
   

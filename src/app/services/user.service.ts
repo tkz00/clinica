@@ -53,4 +53,9 @@ export class UserService {
     const r = (await this.getUsers()).filter(especialista => especialista['type'] == 'especialista' && especialista['enabled'] && especialista['verified']);
     return r;
   }
+
+  async getPacientes() {
+    const r = (await this.getUsers()).filter(paciente => paciente['type'] == 'paciente' && paciente['verified']);
+    return r;
+  }
 }
