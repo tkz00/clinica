@@ -18,6 +18,11 @@ export class MisTurnosComponent {
 
   searchValue = '';
 
+  selectedTurnId = '';
+  rateTurnModalOpen = false;
+  surveyModalOpen = false;
+  clinicalStoryModalOpen = false;
+
   constructor(
     private authService: AuthService,
     private turnosService: TurnosService
@@ -47,8 +52,6 @@ export class MisTurnosComponent {
     }
 
     this.filteredTurnos = this.turnos;
-
-    console.log(this.filteredTurnos);
   }
 
   async cancelTurn(id: string) {
@@ -77,10 +80,6 @@ export class MisTurnosComponent {
         }
       }
     });
-  }
-
-  async rateTurn(id: string) {
-
   }
 
   async rejectTurn(id: string) {
@@ -149,8 +148,44 @@ export class MisTurnosComponent {
     });
   }
 
-  async completeSurvey(id: string) {
+  async openClinicalStory(id: string) {
+    this.selectedTurnId = id;
+    this.clinicalStoryModalOpen = true;
+  }
 
+  onClinicalStorySubmitted(clinicalStory: any) {
+    this.turnosService.submitClinicalStory(this.selectedTurnId, clinicalStory);
+    this.finalizeTurn(this.selectedTurnId);
+  }
+
+  closeClinicalStoryModal() {
+    this.clinicalStoryModalOpen = false;
+  }
+
+  async rateTurn(id: string) {
+    this.selectedTurnId = id;
+    this.clinicalStoryModalOpen = true;
+  }
+
+  onRatingSubmitted(ratingData: { rating: number; comment: string }) {
+    this.turnosService.submitRating(this.selectedTurnId, ratingData);
+  }
+
+  closeRateModal() {
+    this.rateTurnModalOpen = false;
+  }
+
+  async surveyTurn(id: string) {
+    this.selectedTurnId = id;
+    this.surveyModalOpen = true;
+  }
+
+  onSurveySubmitted(surveyData: any) {
+    this.turnosService.submitSurvey(this.selectedTurnId, surveyData);
+  }
+
+  closeSurveyModal() {
+    this.surveyModalOpen = false;
   }
 
   seeReview(turn: any) {
@@ -163,18 +198,20 @@ export class MisTurnosComponent {
   filterItems() {
     if (!this.isEspecialista) {
       this.filteredTurnos = this.turnos.filter(turno =>
-        turno.data.especialidad.toLowerCase().includes(this.searchValue.toLowerCase()) ||
+        turno.data.especialidad.name.toLowerCase().includes(this.searchValue.toLowerCase()) ||
         turno.data.especialista.nombre.toLowerCase().includes(this.searchValue.toLowerCase()) ||
         turno.data.especialista.apellido.toLowerCase().includes(this.searchValue.toLowerCase()) ||
-        turno.data.especialista.email.toLowerCase().includes(this.searchValue.toLowerCase())
+        turno.data.especialista.email.toLowerCase().includes(this.searchValue.toLowerCase()) ||
+        getClinicalStoryMatch(turno.data.clinicalStory, this.searchValue.toLowerCase())
       );
     }
     else {
       this.filteredTurnos = this.turnos.filter(turno =>
-        turno.data.especialidad.toLowerCase().includes(this.searchValue.toLowerCase()) ||
+        turno.data.especialidad.name.toLowerCase().includes(this.searchValue.toLowerCase()) ||
         turno.data.paciente.nombre.toLowerCase().includes(this.searchValue.toLowerCase()) ||
         turno.data.paciente.apellido.toLowerCase().includes(this.searchValue.toLowerCase()) ||
-        turno.data.paciente.email.toLowerCase().includes(this.searchValue.toLowerCase())
+        turno.data.paciente.email.toLowerCase().includes(this.searchValue.toLowerCase()) ||
+        getClinicalStoryMatch(turno.data.clinicalStory, this.searchValue.toLowerCase())
       );
     }
   }
@@ -182,4 +219,14 @@ export class MisTurnosComponent {
   ngOnDestroy() {
     this.filteredTurnosSubject.unsubscribe();
   }
+}
+
+function getClinicalStoryMatch(clinicalStory: any, searchValue: string): boolean {
+  const result = clinicalStory.some((clinical: any) => {
+    return Object.keys(clinical).some(key => {
+      const value = clinical[key];
+      return key.includes(searchValue) || (typeof value === 'string' && value.includes(searchValue));
+    });
+  });
+  return result;
 }

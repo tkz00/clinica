@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
-import { Firestore, collection, doc, getDocs, updateDoc } from '@angular/fire/firestore';
+import { Firestore, Timestamp, arrayUnion, collection, doc, getDocs, updateDoc } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -68,6 +68,28 @@ export class TurnosService {
     await updateDoc(turnRef, {
       estado: 'realizado',
       review: message
+    });
+  }
+
+  async submitRating(id: string, ratingData: { rating: number; comment: string }) {
+    const turnRef = doc(this.firestore2, 'turns', id);
+    await updateDoc(turnRef, {
+      rating: ratingData.rating,
+      ratingComment: ratingData.comment
+    });
+  }
+
+  async submitSurvey(id: string, surveyData: any) {
+    const turnRef = doc(this.firestore2, 'turns', id);
+    await updateDoc(turnRef, {
+      survey: surveyData
+    });
+  }
+
+  async submitClinicalStory(id: string, clinicalStory: any) {
+    const turnRef = doc(this.firestore2, 'turns', id);
+    await updateDoc(turnRef, {
+      clinicalStory: arrayUnion(clinicalStory)
     });
   }
 }

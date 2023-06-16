@@ -51,7 +51,6 @@ export class MyProfileComponent implements OnInit {
       this.availability[day].push(hour);
     }
 
-    console.log(this.availability);
     this.usersService.updateHorario(this.user.id, this.availability);
   }
 

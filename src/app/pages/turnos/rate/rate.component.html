@@ -1,0 +1,19 @@
+<div class="rating-modal">
+    <div class="modal-header">
+      <h5 class="modal-title">Calificar Atención</h5>
+      <!-- <button type="button" class="close" (click)="onCancel()">
+        <span aria-hidden="true">&times;</span>
+      </button> -->
+    </div>
+    <div class="modal-body">
+        <div class="rating-stars">
+            <span class="star" (click)="onStarClick(i)" [class.selected]="i <= selectedStarIndex" *ngFor="let _ of starsArray; let i = index">&#9733;</span>
+        </div>
+        <textarea class="form-control comment-input" [(ngModel)]="comment" placeholder="Deja un comentario"></textarea>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="onCancel()">Cerrar</button>
+      <button type="button" class="btn btn-primary" (click)="onSubmit()">Calificar</button>
+    </div>
+</div>
+  

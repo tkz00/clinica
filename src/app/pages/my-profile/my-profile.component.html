@@ -26,8 +26,15 @@
                         <strong>Edad:</strong> {{ user.edad }}<br>
                         <strong>Obra social:</strong> {{ user.obraSocial }}<br>
                     </p>
+                    <div *ngIf="user.type === 'paciente'">
+                      <button routerLink="/historia-clinica" class="btn btn-primary">Ver historia clinica</button>
+                    </div>
+                    <div *ngIf="user.type === 'especialista'">
+                      <button routerLink="/pacientes" class="btn btn-primary">Ver mis pacientes</button>
+                    </div>
                   </div>
                 </div>
+
                 <div *ngIf="user.type === 'especialista'">
                     <h2>Horarios</h2>
 
@@ -49,8 +56,6 @@
                         </tr>
                       </tbody>
                     </table>
-                    
-                    
                 </div>
               </div>
             </div>

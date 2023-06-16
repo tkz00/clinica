@@ -1,0 +1,38 @@
+<div class="survey">
+    <h3 class="survey-title">Encuesta de satisfacción</h3>
+    <div class="survey-question">
+      <label for="higiene">¿Qué tan conforme está con la higiene de la institución?</label>
+      <select id="higiene" class="form-control">
+        <option value="1">Muy insatisfecho</option>
+        <option value="2">Insatisfecho</option>
+        <option value="3">Neutral</option>
+        <option value="4">Satisfecho</option>
+        <option value="5">Muy satisfecho</option>
+      </select>
+    </div>
+    <div class="survey-question">
+      <label for="atencion">¿Cómo le pareció la atención durante su turno?</label>
+      <select id="atencion" class="form-control">
+        <option value="1">Muy insatisfecho</option>
+        <option value="2">Insatisfecho</option>
+        <option value="3">Neutral</option>
+        <option value="4">Satisfecho</option>
+        <option value="5">Muy satisfecho</option>
+      </select>
+    </div>
+    <div class="survey-question">
+      <label for="recomendacion">¿Qué tan probable es que recomiende la clínica a otras personas?</label>
+      <select id="recomendacion" class="form-control">
+        <option value="1">Muy improbable</option>
+        <option value="2">Improbable</option>
+        <option value="3">Neutral</option>
+        <option value="4">Probable</option>
+        <option value="5">Muy probable</option>
+      </select>
+    </div>
+    <div class="survey-submit">
+        <button type="button" class="btn btn-secondary" (click)="onCancel()">Cerrar</button>
+        <button class="btn btn-primary" (click)="submitSurvey()">Enviar</button>
+    </div>
+</div>
+  

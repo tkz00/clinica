@@ -1,0 +1,46 @@
+.rating-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 5px;
+  text-align: center;
+  border: 2px solid;
+}
+  
+.modal-title {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+  
+.rating-stars {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+  
+.star {
+    cursor: pointer;
+}
+
+.star.selected {
+    color: gold;
+}
+  
+.comment-input {
+    width: 100%;
+    height: 100px;
+    margin-bottom: 20px;
+    padding: 10px;
+}
+  
+.modal-footer {
+    display: flex;
+    justify-content: center;
+
+    button {
+      margin: 5px;
+    }
+}

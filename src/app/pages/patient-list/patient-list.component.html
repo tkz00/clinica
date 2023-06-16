@@ -1,0 +1,41 @@
+<div class="patient-list-page">
+    <div class="table-container">
+        <ng-container *ngIf="!isLoading">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Tipo</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Edad</th>
+                        <th>DNI</th>
+                        <th>Mail</th>
+                        <th>Historia de usuario</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let user of users">
+                        <td>{{ user.type }}</td>
+                        <td>{{ user.nombre }}</td>
+                        <td>{{ user.apellido }}</td>
+                        <td>{{ user.edad }}</td>
+                        <td>{{ user.dni }}</td>
+                        <td>{{ user.email }}</td>
+                        <td style="text-align: center;" [ngStyle]="user.type !== 'paciente' ? { 'background-color': '#b3b3b3' } : {}">
+                            <button *ngIf="user.type == 'paciente'" [routerLink]="'/historia-clinica/' + user.id" class="btn btn-primary">Ver historia de usuario</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </ng-container>
+
+        <ng-container *ngIf="isLoading">
+            <div class="spinner-container">
+              <div class="spinner"></div>
+            </div>
+        </ng-container>
+    </div>
+
+    <app-footer style="width: 100%;"></app-footer>
+</div>
+  

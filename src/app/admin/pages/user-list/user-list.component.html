@@ -22,6 +22,7 @@
                         <th>DNI</th>
                         <th>Mail</th>
                         <th>Habilitado</th>
+                        <th>Historia de usuario</th>
                         <!-- <th>Email Verificado</th> -->
                     </tr>
                 </thead>
@@ -36,12 +37,16 @@
                         <td style="text-align: center;" [ngStyle]="user.type !== 'especialista' ? { 'background-color': '#b3b3b3' } : {}">
                             <input *ngIf="user.type == 'especialista'" type="checkbox" [(ngModel)]="user.enabled" (ngModelChange)="onEnabledChange($event, user.id)">
                         </td>
+                        <td style="text-align: center;" [ngStyle]="user.type !== 'paciente' ? { 'background-color': '#b3b3b3' } : {}">
+                            <button *ngIf="user.type == 'paciente'" [routerLink]="'/historia-clinica/' + user.id" class="btn btn-primary">Ver historia de usuario</button>
+                        </td>
                         <!-- <td>
                             <input type="checkbox" [(ngModel)]="user.verified">
                         </td> -->
                     </tr>
                 </tbody>
             </table>
+            <button (click)="downloadUsersExcel()" class="btn btn-success">Descargar excel de usuarios</button>
         </ng-container>
 
         <ng-container *ngIf="isLoading">

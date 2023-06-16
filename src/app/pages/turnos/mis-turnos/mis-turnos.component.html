@@ -19,7 +19,7 @@
               <tr *ngFor="let turno of filteredTurnos" [id]="'turn-' + turno.id">
                 <td>{{ turno.data.paciente.nombre + " " + turno.data.paciente.apellido  }}</td>
                 <td>{{ turno.data.especialista.nombre + " " + turno.data.especialista.apellido }}</td>
-                <td>{{ turno.data.especialidad }}</td>
+                <td>{{ turno.data.especialidad.name }}</td>
                 <td class="dateTime">{{ turno.data.fechaHora.toDate() | date:'hh:mm dd/MM/YYYY' }}</td>
                 <td>
                     <span class="badge" [ngClass]="{
@@ -39,7 +39,7 @@
                       <button *ngIf="turno.data.estado !== 'realizado'" class="btn btn-link" (click)="cancelTurn(turno.id)" placement="top" ngbTooltip="Cancelar">
                           <i class="bi bi-x-circle" style="color: red;"></i>
                       </button>
-                      <button *ngIf="turno.data.estado === 'realizado' && turno.data.review" class="btn btn-link" (click)="completeSurvey(turno.id)" placement="top" ngbTooltip="Completar encuesta">
+                      <button *ngIf="turno.data.estado === 'realizado' && turno.data.review" class="btn btn-link" (click)="surveyTurn(turno.id)" placement="top" ngbTooltip="Completar encuesta">
                         <i class="bi bi-pencil" style="color: #252525;"></i>
                       </button>
                       <button *ngIf="turno.data.estado === 'realizado'" class="btn btn-link" (click)="rateTurn(turno.id)" placement="top" ngbTooltip="Calificar Atención">
@@ -58,7 +58,7 @@
                       <button *ngIf="turno.data.estado !== 'cancelado' && turno.data.estado !== 'realizado' && turno.data.estado !== 'rechazado'" class="btn btn-link" (click)="acceptTurn(turno.id)" placement="top" ngbTooltip="Aceptar turno">
                         <i class="bi bi-check-circle" style="color: blue;"></i>
                       </button>
-                      <button *ngIf="turno.data.estado === 'aceptado'" class="btn btn-link" (click)="finalizeTurn(turno.id)" placement="top" ngbTooltip="Finalizar Turno">
+                      <button *ngIf="turno.data.estado === 'aceptado'" class="btn btn-link" (click)="openClinicalStory(turno.id)" placement="top" ngbTooltip="Finalizar Turno">
                         <i class="bi bi-archive" style="color: darkorange;"></i>
                       </button>
                   </ng-container>
@@ -78,3 +78,7 @@
 
     <app-footer style="width: 100%;"></app-footer>
 </div>
+
+<app-rate *ngIf="rateTurnModalOpen" (ratingSubmitted)="onRatingSubmitted($event)" (onCloseModal)="closeRateModal()"></app-rate>
+<app-survey *ngIf="surveyModalOpen" (surveySubmitted)="onSurveySubmitted($event)" (onCloseModal)="closeSurveyModal()"></app-survey>
+<app-clinical-story-modal *ngIf="clinicalStoryModalOpen" (surveySubmitted)="onClinicalStorySubmitted($event)" (onCloseModal)="closeClinicalStoryModal()"></app-clinical-story-modal>

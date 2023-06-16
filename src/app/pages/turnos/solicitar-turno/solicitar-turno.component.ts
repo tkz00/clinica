@@ -20,19 +20,27 @@ export class SolicitarTurnoComponent implements OnInit {
   isAdmin = false;
 
   pacientes: any[] = [];
+  pacientesInput: string = '';
+  filteredPacientes: any[] = [];
+  selectedPaciente: any;
 
-  especialidades: string[] = [];
-  selectedEspecialidad: string;
+  especialidades: any[] = [];
+  especialidadInput: string = '';
+  filteredEspecialidades: any[] = [];
+  selectedEspecialidad: any;
 
   especialistas: any[] = [];
+  especialistaInput: string = '';
   filteredEspecialistas: any[] = [];
   selectedEspecialista: any;
 
-  daysOfWeek: string[] = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sábado'];
-  daysOfWeekEng: string[] = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-  hoursOfDay: string[] = ['9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm'];
-  dates: Date[] = [];
-  availability: { [day: string]: string[] } = {};
+  daysOfWeek: string[] = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
+  daysOfWeekEng: string[] = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+  availability: any;
+  orderedAvailability: any[] = [];
+  availableHours: string[];
+  selectedDate: any;
+  selectedHour: string;
 
   constructor(
     private authService: AuthService,
@@ -60,47 +68,21 @@ export class SolicitarTurnoComponent implements OnInit {
       this.turnoForm.controls['paciente'].setValue(this.authService.usuarioDB);
     }
 
-    this.orderDays();
-
-    this.getDates();
-
     this.especialidadesService.getEspecialidades().subscribe(
       especialidades => {
         this.especialidades = especialidades.map(especialidad => {
-          return especialidad.name.charAt(0).toUpperCase() + especialidad.name.slice(1);
+          return {
+            name: especialidad.name.charAt(0).toUpperCase() + especialidad.name.slice(1),
+            imgUrl: especialidad.imgUrl
+          };
         });
-      });
+        this.filteredEspecialidades = this.especialidades;
+      }
+    );
+
 
     this.especialistas = await this.userService.getEspecialistas();
     this.filteredEspecialistas = this.especialistas;
-  }
-
-  orderDays() {
-    const today = new Date().toLocaleDateString('en-US', { weekday: 'long' });
-    const todayIndex = this.daysOfWeekEng.findIndex(day => day === today);
-
-    if (todayIndex !== -1) {
-      this.daysOfWeek = [
-        ...this.daysOfWeek.slice(todayIndex),
-        ...this.daysOfWeek.slice(0, todayIndex)
-      ];
-    } else {
-      // es domingo, no se hace ningún cambio
-    }
-  }
-
-  getDates() {
-    const today = new Date();
-    const oneDay = 24 * 60 * 60 * 1000; // Milliseconds in a day
-
-    for (let i = 0; this.dates.length < 6; i++) {
-      const nextDate = new Date(today.getTime() + i * oneDay);
-      if (nextDate.getDay() !== 0) {
-        this.dates.push(nextDate);
-      }
-    }
-
-    console.log(this.dates);
   }
 
   async onSubmit() {
@@ -116,48 +98,157 @@ export class SolicitarTurnoComponent implements OnInit {
     });
   }
 
-  onSelectEspecialidad(event: any) {
-    this.turnoForm.controls['especialidad'].setValue(event);
-    this.turnoForm.controls['especialista'].setValue(null);
-    this.selectedEspecialista = null;
-    this.filteredEspecialistas = this.especialistas.filter((especialista) => especialista.especialidad == event);
+  onSelectPaciente(paciente: any) {
+    event!.preventDefault();
+    this.turnoForm.controls['paciente'].setValue(paciente);
+    this.selectedPaciente = paciente;
   }
 
-  onSelectEspecialista(event: any) {
-    this.turnoForm.controls['especialista'].setValue(event);
-    this.selectedEspecialista = event;
+  onSelectEspecialidad(especialidad: any) {
+    event!.preventDefault();
+    this.turnoForm.controls['especialidad'].setValue(especialidad);
+    this.turnoForm.controls['especialista'].setValue(null);
+    this.selectedEspecialidad = especialidad;
+    this.selectedEspecialista = null;
+    this.filteredEspecialistas = this.especialistas.filter((especialista) => especialista.especialidad.toLowerCase() == especialidad.name.toLowerCase());
+  }
+
+  onSelectEspecialista(especialista: any) {
+    event!.preventDefault();
+    this.turnoForm.controls['especialista'].setValue(especialista);
+    this.selectedEspecialista = especialista;
     if (this.selectedEspecialista.horarios) {
       this.availability = this.selectedEspecialista.horarios;
+      this.orderAvailability();
     }
+    this.turnoForm.controls['fechaHora'].setValue(null);
+    this.selectedDate = null;
+    this.selectedHour = '';
+  }
+
+  orderAvailability() {
+    this.orderedAvailability = [];
+    const today = new Date();
+    const todayIndex = today.getDay(); // Get the index of today's day (0 = Sunday, 1 = Monday, ...)
+
+    if (todayIndex !== -1) {
+      const orderedDaysOfWeek = [
+        ...this.daysOfWeek.slice(todayIndex),
+        ...this.daysOfWeek.slice(0, todayIndex)
+      ];
+
+      for (let index = 0; index < (orderedDaysOfWeek.length * 2); index++) {
+        if (this.availability.hasOwnProperty(orderedDaysOfWeek[index])) {
+          const availableHours = this.availability[orderedDaysOfWeek[index]];
+          const date = new Date(today.getTime() + 24 * 60 * 60 * 1000 * (index + 1)); // Add 1 day for each index
+          const formattedDate = `${date.getDate()}/${date.getMonth() + 1}`; // Format the date as "dd/mm"
+
+          this.orderedAvailability.push({
+            day: orderedDaysOfWeek[index],
+            dayMonth: formattedDate,
+            hours: availableHours
+          });
+        }
+
+        if (this.availability.hasOwnProperty(orderedDaysOfWeek[index - 7])) {
+          const availableHours = this.availability[orderedDaysOfWeek[index - 7]];
+          const date = new Date(today.getTime() + 24 * 60 * 60 * 1000 * (index + 1)); // Add 1 day for each index
+          const formattedDate = `${date.getDate()}/${date.getMonth() + 1}`; // Format the date as "dd/mm"
+
+          this.orderedAvailability.push({
+            day: orderedDaysOfWeek[index],
+            dayMonth: formattedDate,
+            hours: availableHours
+          });
+        }
+      }
+    }
+  }
+
+  selectDate(date: any) {
+    event!.preventDefault();
+    this.availableHours = orderHours(date.hours);
+    this.selectedDate = date;
+    this.turnoForm.controls['fechaHora'].setValue(null);
+    this.selectedHour = '';
+  }
+
+  selectHour(hour: string) {
+    event!.preventDefault();
+    this.selectedHour = hour;
+    const dateTime = parseDateTime(this.selectedDate.dayMonth, this.selectedHour);
+    const timestamp = Timestamp.fromDate(dateTime!);
+    this.turnoForm.controls['fechaHora'].setValue(timestamp);
   }
 
   isAvailable(day: string, hour: string) {
     return this.availability[day] && this.availability[day].includes(hour);
   }
 
-  selectHorario(date: Date, day: string, hourString: string) {
-    // HTML manipulation
-    const timeButtons = document.getElementsByClassName('time-button');
+  onEspecialidadInputChange(inputElement: any): void {
+    this.especialidadInput = inputElement.target.value;
+    this.filterEspecialidades();
+  }
 
-    for (let i = 0; i < timeButtons.length; i++) {
-      const element = timeButtons[i];
-      element.classList.remove('selected');
-      if (element.querySelector('input[type="checkbox"]')) {
-        (element.querySelector('input[type="checkbox"]') as HTMLInputElement).checked = false;
-      }
+  filterEspecialidades(): string[] {
+    return this.filteredEspecialidades = this.especialidades.filter(especialidad => especialidad.name.toLowerCase().includes(this.especialidadInput.toLowerCase()));
+  }
+
+  onEspecialistaInputChange(inputElement: any): void {
+    this.especialistaInput = inputElement.target.value;
+    this.filterEspecialistas();
+  }
+
+  filterEspecialistas(): string[] {
+    return this.filteredEspecialistas = this.especialistas.filter((especialista) => especialista.especialidad == this.selectedEspecialidad).filter(especialista => especialista.toLowerCase().includes(this.especialidadInput.toLowerCase()));
+  }
+
+  onPacienteInputChange(inputElement: any): void {
+    this.pacientesInput = inputElement.target.value;
+    this.filterPacientes();
+  }
+
+  filterPacientes(): string[] {
+    return this.filteredPacientes = this.pacientes.filter(paciente => paciente.toLowerCase().includes(this.pacientesInput.toLowerCase()));
+  }
+}
+
+function parseDateTime(dateString: string, timeString: string): Date | null {
+  const dateRegex = /^(\d{1,2})\/(\d{1,2})$/;
+  const timeRegex = /^(\d{1,2})(am|pm)$/i;
+
+  const dateMatch = dateString.match(dateRegex);
+  const timeMatch = timeString.match(timeRegex);
+
+  if (dateMatch && timeMatch) {
+    const day = parseInt(dateMatch[1], 10);
+    const month = parseInt(dateMatch[2], 10);
+    let hours = parseInt(timeMatch[1], 10);
+
+    let minutes = 0;
+    let isAM = false;
+
+    if (timeMatch[2].toLowerCase() === 'pm') {
+      hours += 12;
     }
 
-    document.getElementById(day + "-" + hourString)?.classList.add('selected');
-    (document.getElementById(day + "-" + hourString)!.querySelector('input[type="checkbox"]') as HTMLInputElement).checked = true;
-
-    // Setting datetime in the form
-    // Extract hour value from the string
-    const hour = parseInt(hourString, 10);
-
-    // Adjust hour to 24-hour format if necessary
-    const adjustedHour = hourString.includes('pm') && hour !== 12 ? hour + 12 : hour;
-    date.setHours(adjustedHour, 0, 0);
-    const timestamp = Timestamp.fromDate(date);
-    this.turnoForm.controls['fechaHora'].setValue(timestamp);
+    return new Date(new Date().getFullYear(), month - 1, day, hours, minutes);
   }
+
+  return null;
+}
+
+function orderHours(hours: string[]): string[] {
+  return hours.sort((a, b) => {
+    const timeA = parseInt(a, 10);
+    const timeB = parseInt(b, 10);
+    const isAM_A = a.toLowerCase().includes('am');
+    const isAM_B = b.toLowerCase().includes('am');
+
+    // Convert hours to 24-hour format for proper comparison
+    const convertedA = isAM_A ? timeA : timeA + 12;
+    const convertedB = isAM_B ? timeB : timeB + 12;
+
+    return convertedA - convertedB;
+  });
 }

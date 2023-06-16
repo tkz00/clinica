@@ -1,0 +1,29 @@
+.survey {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 700px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    border: 2px solid;
+}
+  
+.survey-title {
+    text-align: center;
+}
+  
+.survey-question {
+    margin-bottom: 15px;
+}
+  
+.survey-submit {
+    display: flex;
+    justify-content: center;
+
+    button {
+      margin: 5px;
+    }
+}
+  

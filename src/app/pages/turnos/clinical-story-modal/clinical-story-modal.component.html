@@ -1,0 +1,36 @@
+<div class="survey-modal">
+    <div class="survey-modal-content">
+      <h2>Historia clinica</h2>
+      <div class="form-group">
+        <label for="height">Altura</label>
+        <input type="number" class="form-control" id="height" [(ngModel)]="height" placeholder="Altura">
+      </div>
+      <div class="form-group">
+        <label for="weight">Peso</label>
+        <input type="number" class="form-control" id="weight" [(ngModel)]="weight" placeholder="Peso">
+      </div>
+      <div class="form-group">
+        <label for="fever">Temperatura</label>
+        <input type="number" class="form-control" id="fever" [(ngModel)]="fever" placeholder="Temperatura">
+      </div>
+      <div class="form-group">
+        <label for="bloodPressure">Presión arterial</label>
+        <input type="text" class="form-control" id="bloodPressure" [(ngModel)]="bloodPressure" placeholder="Presión arterial">
+      </div>
+      <div class="form-group" *ngFor="let field of dynamicFields; let i = index;">
+        <div class="dynamic-fields">
+            <label for="key{{i}}">Campo</label>
+            <input type="text" class="form-control" id="key{{i}}" [(ngModel)]="field.key" placeholder="Campo">
+            <label for="value{{i}}">Valor</label>
+            <input type="text" class="form-control" id="value{{i}}" [(ngModel)]="field.value" placeholder="Valor">
+            <button class="btn btn-danger" (click)="removeDynamicField(i)">Borrar</button>
+        </div>
+      </div>
+      <button class="btn btn-primary" (click)="addDynamicField()" *ngIf="dynamicFields.length < 3">Añadir campo</button>
+      <div class="modal-buttons">
+        <button class="btn btn-secondary" (click)="closeSurveyModal()">Cerrar</button>
+        <button class="btn btn-primary" (click)="submitSurvey()">Guardar</button>
+      </div>
+    </div>
+</div>
+  

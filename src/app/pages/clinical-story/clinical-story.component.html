@@ -1,0 +1,21 @@
+<div class="clinical-story-page">
+    <div class="clinical-story-container">
+        <h2><strong>Historia clinica de </strong>{{ userToShow.apellido + ", " + userToShow.nombre }}</h2>
+        <div class="clinical-stories">
+            <div *ngFor="let clinicalStory of userClinicalStory" class="clinical-story">
+                <p><strong>Fecha:</strong> {{ clinicalStory.date.toDate() | date:'dd/MM/YYYY' }}</p>
+
+                <p><strong>Altura:</strong> {{ clinicalStory.height }}cm</p>
+                <p><strong>Peso:</strong> {{ clinicalStory.weight }}kg</p>
+                <p><strong>Temperatura:</strong> {{ clinicalStory.fever }}°</p>
+                <p><strong>Presión:</strong> {{ clinicalStory.bloodPressure }}</p>
+
+                <ng-container *ngFor="let field of clinicalStory.dynamicFields" class="form-group">
+                    <p><strong>{{ field.key }}: </strong>{{ field.value }}</p>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+
+    <app-footer style="width: 100%;"></app-footer>
+</div>

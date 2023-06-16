@@ -23,6 +23,44 @@
             div {
                 width: 100%;
                 padding: 10px;
+                display: flex;
+                flex-direction: column;
+
+                .select-buttons {
+                    display: flex;
+                    flex-direction: row;
+
+                    button {
+                        margin: 5px;
+                        width: 150px;
+                    }
+
+                    img {
+                        margin: 5px;
+                        width: 150px;
+                        height: 150px;
+                        object-fit: cover;
+                        border-radius: 100%;
+                        border: 5px solid rgb(128, 128, 128);
+                        cursor: pointer;
+                    }
+
+                    .selected {
+                        border-color: blue;
+                    }
+                }
+            }
+
+        }
+
+        .datetime-selector {
+            display: flex;
+            flex-direction: column;
+            
+            div {
+                button {
+                    margin: 5px;
+                }
             }
         }
 

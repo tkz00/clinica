@@ -1,0 +1,37 @@
+.clinical-story-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: calc(100vh - 85px);
+    background-image: url('/assets/images/background.png');
+    background-size: cover;
+    background-position: center;
+
+    @media screen and (min-width: 992px) {
+        max-width: none;
+    }
+
+    .clinical-story-container {
+        width: 70%;
+        margin: 200px 0 100px 0;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background-color: #b3b3b3;
+        display: flex;
+        flex-direction: column;
+
+        .clinical-stories {
+            display: flex;
+            flex-direction: row;
+            
+            .clinical-story {
+                border: 1px solid;
+                margin: 10px;
+                padding: 10px;
+                background-color: white;
+            }
+        }
+    }
+}

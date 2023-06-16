@@ -1,5 +1,17 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AngularFireModule } from '@angular/fire/compat';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { NgbModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { RECAPTCHA_SETTINGS, RecaptchaFormsModule, RecaptchaModule, RecaptchaSettings, RecaptchaV3Module } from 'ng-recaptcha';
+
+import { AppRoutingModule } from './app-routing.module';
+
+import { environment } from 'src/enviorments/environment';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
@@ -8,27 +20,16 @@ import { RegistroPacienteComponent } from './pages/registro/registro-paciente/re
 import { RegistroEspecialistaComponent } from './pages/registro/registro-especialista/registro-especialista.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { EspecialidadesSelectorComponent } from './components/especialidades-selector/especialidades-selector.component';
-import { UserListComponent } from './pages/admin/user-list/user-list.component';
-import { DashboardComponent } from './pages/admin/dashboard/dashboard.component';
-
-import { AppRoutingModule } from './app-routing.module';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
-import { AngularFireModule } from '@angular/fire/compat';
-import { getFirestore, provideFirestore } from '@angular/fire/firestore';
-import { environment } from 'src/enviorments/environment';
-import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
-import { RegistroAdminComponent } from './pages/admin/registro-admin/registro-admin.component';
 import { RegistroComponent } from './pages/registro/registro/registro.component';
-import { RECAPTCHA_SETTINGS, RecaptchaFormsModule, RecaptchaModule, RecaptchaSettings, RecaptchaV3Module } from 'ng-recaptcha';
 import { MyProfileComponent } from './pages/my-profile/my-profile.component';
 import { SolicitarTurnoComponent } from './pages/turnos/solicitar-turno/solicitar-turno.component';
-import { NgSelectModule } from '@ng-select/ng-select';
-import { NgbModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
-import { TurnosComponent } from './pages/admin/turnos/turnos.component';
 import { MisTurnosComponent } from './pages/turnos/mis-turnos/mis-turnos.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { AdminFooterComponent } from './pages/admin/components/admin-footer/admin-footer.component';
+import { RateComponent } from './pages/turnos/rate/rate.component';
+import { SurveyComponent } from './pages/turnos/survey/survey.component';
+import { ClinicalStoryModalComponent } from './pages/turnos/clinical-story-modal/clinical-story-modal.component';
+import { ClinicalStoryComponent } from './pages/clinical-story/clinical-story.component';
+import { PatientListComponent } from './pages/patient-list/patient-list.component';
 
 @NgModule({
   declarations: [
@@ -39,16 +40,16 @@ import { AdminFooterComponent } from './pages/admin/components/admin-footer/admi
     RegistroEspecialistaComponent,
     NavbarComponent,
     EspecialidadesSelectorComponent,
-    UserListComponent,
-    DashboardComponent,
-    RegistroAdminComponent,
     RegistroComponent,
     MyProfileComponent,
     SolicitarTurnoComponent,
-    TurnosComponent,
     MisTurnosComponent,
     FooterComponent,
-    AdminFooterComponent
+    RateComponent,
+    SurveyComponent,
+    ClinicalStoryModalComponent,
+    ClinicalStoryComponent,
+    PatientListComponent
   ],
   imports: [
     BrowserModule,
@@ -62,7 +63,8 @@ import { AdminFooterComponent } from './pages/admin/components/admin-footer/admi
     RecaptchaFormsModule,
     NgSelectModule,
     NgbModule,
-    NgbTooltipModule
+    NgbTooltipModule,
+    BrowserAnimationsModule
   ],
   providers: [
     {

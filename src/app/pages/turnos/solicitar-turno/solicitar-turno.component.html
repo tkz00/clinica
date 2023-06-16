@@ -7,60 +7,77 @@
           <div class="form-select-container">
             <div *ngIf="isAdmin">
               <label>Paciente</label>
-              <ng-select [items]="pacientes"
-                      formControlName="paciente"
-                      bindLabel="email" 
-                      [searchable]="true"
-                      placeholder="Elegí un paciente">
-              </ng-select>
+              <input type="text" (input)="onPacienteInputChange($event)">
+              <div class="select-buttons">
+                <button *ngFor="let paciente of filteredPacientes"
+                      (click)="onSelectPaciente(paciente)"
+                      [class.btn-primary]="paciente === selectedPaciente"
+                      [class.btn-secondary]="paciente !== selectedPaciente"
+                      class="btn">
+                  {{ paciente.email }}
+                </button>
+              </div>
             </div>
 
             <div>
               <label>Especialidad:</label>
-              <ng-select [items]="especialidades"
-                      formControlName="especialidad"
-                      [searchable]="true"
-                      placeholder="Elegí una especialidad"
-                      (change)="onSelectEspecialidad($event)">
-                  <ng-template ng-option-tmp let-item="item" let-index="index">
-                      {{ item }}
-                  </ng-template>
-              </ng-select>
+
+              <input type="text" (input)="onEspecialidadInputChange($event)" placeholder="Busque especialidad...">
+              <div class="select-buttons">
+                <img *ngFor="let especialidad of filteredEspecialidades"
+                      (click)="onSelectEspecialidad(especialidad)"
+                      [class.selected]="especialidad === selectedEspecialidad"
+                      class="img-fluid"
+                      [src]="especialidad.imgUrl"
+                      [alt]="especialidad.name">
+                  <!-- {{ especialidad }} -->
+              </div>
             </div>
 
+            <!-- <div *ngIf="this.selectedEspecialidad"> -->
             <div>
               <label>Especialista (solo aparecen los verificados y habilitados):</label>
-              <ng-select [items]="filteredEspecialistas"
-                      formControlName="especialista"
-                      bindLabel="nombre" 
-                      [searchable]="true"
-                      placeholder="Elegí un especialista"
-                      (change)="onSelectEspecialista($event)">
-              </ng-select>
+              <input type="text" (input)="onEspecialistaInputChange($event)" placeholder="Busque por especialista...">
+              <div class="select-buttons" *ngIf="filteredEspecialistas">
+                <div *ngFor="let especialista of filteredEspecialistas">
+                  <img (click)="onSelectEspecialista(especialista)"
+                       [class.selected]="especialista === selectedEspecialista"
+                       class="img-fluid"
+                       [src]="especialista.imagen"
+                       [alt]="especialista.nombre">
+                  <p>{{ especialista.nombre + " " + especialista.apellido }}</p>
+                  </div>
+              </div>
+              <span *ngIf="filteredEspecialistas.length <= 0">No hay especialistas disponibles ahora mismo</span>
             </div>
           </div>
 
-            <div *ngIf="selectedEspecialista">
-                <h4>Horarios (disponibles en verde)</h4>
+            <div *ngIf="selectedEspecialista" class="datetime-selector">
+                <h4>Dias disponibles</h4>
 
-                <table class="availability-grid">
-                  <thead>
-                    <tr>
-                      <th></th>
-                      <th *ngFor="let day of daysOfWeek; index as i;">{{ day + ', ' + dates[i].toLocaleDateString('en-GB') }}</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let hour of hoursOfDay">
-                      <th>{{ hour }}</th>
-                      <td *ngFor="let day of daysOfWeek; index as i;" [class.available-cell]="isAvailable(day, hour)" [id]="day + '-' + hour" class="time-button">
-                        <label *ngIf="isAvailable(day, hour)">
-                          <input type="checkbox" (change)="selectHorario(dates[i], day, hour)" [value]="hour">
-                        </label>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+                <div>
+                  <button *ngFor="let date of orderedAvailability; let i = index;"
+                        class="btn"
+                        [class.btn-primary]="date === selectedDate"
+                        [class.btn-secondary]="date !== selectedDate"
+                        (click)="selectDate(date)">
+                    {{ date.dayMonth }}
+                  </button>
+                </div>
+
+                <ng-container *ngIf="availableHours">
+                  <h4>Horas disponibles</h4>
+
+                  <div>
+                    <button *ngFor="let hour of availableHours"
+                          class="btn"
+                          [class.btn-primary]="hour === selectedHour"
+                          [class.btn-secondary]="hour !== selectedHour"
+                          (click)="selectHour(hour)">
+                      {{ hour }}
+                    </button>
+                  </div>
+                </ng-container>
             </div>
 
             <!-- <button *ngIf="!isLoading" type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">Login</button> -->

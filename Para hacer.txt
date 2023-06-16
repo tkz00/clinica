@@ -4,10 +4,6 @@ provideFirebaseApp(() => initializeApp(environment.firebase)),
 
 Hacer carousel para las imagenes en la sección "Mi Perfil"
 
-Para crear un turno tiene que ser de las próximas dos semanas
-
-README
-
-que es "completar encuesta" y "Calificar Atención"?
-
 No mostrar horarios de especialistas que hayan sido marcados como disponibles pero estén ocupados por turnos?
+
+El admin se desloguea cuando crea un usuario (punto 1)

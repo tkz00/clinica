@@ -1,0 +1,34 @@
+.survey-modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    width: 700px;
+    border: 3px solid;
+  }
+  
+.survey-modal-content {
+    margin-bottom: 20px;
+
+    input {
+        margin: 0 0px 10px 0px;
+    }
+}
+  
+.modal-buttons {
+    text-align: right;
+}
+  
+.modal-buttons button {
+    margin-left: 10px;
+}
+
+.dynamic-fields {
+    border: 1px solid;
+    border-radius: 5px;
+    margin: 10px 0;
+    padding: 10px;
+}
