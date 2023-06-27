@@ -88,7 +88,9 @@ export class PdfService {
       }
     };
 
-    const pdf = pdfMake.createPdf(documentDefinition);
-    pdf.download(`Reporte-${this.today.toLocaleDateString()}`);
+    // const pdf = pdfMake.createPdf(documentDefinition);
+    // pdf.download(`Reporte-${this.today.toLocaleDateString()}`);
+
+    pdfMake.createPdf(documentDefinition).open();
   }
 }
