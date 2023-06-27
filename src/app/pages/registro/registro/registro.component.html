@@ -1,5 +1,5 @@
 <div class="registration-container">
-    <div class="registration-form" *ngIf="!isLoading">
+    <div class="registration-form" *ngIf="!isLoading" [@slideInOutFromBottom]>
         <h2 *ngIf="!currentComponent">Registro</h2>
         <div *ngIf="!currentComponent" class="row redirection-buttons">
             <div class="col-md-6">

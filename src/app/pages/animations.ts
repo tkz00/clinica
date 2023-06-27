@@ -16,3 +16,13 @@ export const slideInOutAnimation = trigger('slideInOut', [
         animate('0.3s ease-out', style({ transform: 'translateX(100%)' }))
     ])
 ]);
+
+export const slideInOutFromBottomAnimation = trigger('slideInOutFromBottom', [
+    state('void', style({ transform: 'translateY(200%)' })),
+    transition(':enter', [
+        animate('0.5s ease-in', style({ transform: 'translateY(0%)' }))
+    ]),
+    transition(':leave', [
+        animate('0.5s ease-out', style({ transform: 'translateY(-200%)' }))
+    ])
+]);

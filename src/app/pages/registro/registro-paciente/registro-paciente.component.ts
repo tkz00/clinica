@@ -5,6 +5,7 @@ import { from } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { ImagesService } from 'src/app/services/images.service';
 import { UserService } from 'src/app/services/user.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-registro-paciente',
@@ -78,6 +79,15 @@ export class RegistroPacienteComponent implements OnInit {
       await this.userService.adduser(newUser);
 
       this.changeIsLoading(false);
+
+      Swal.fire({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        icon: 'success',
+        title: 'Se ha creado el usuario con éxito'
+      })
 
       this.router.navigate(['/']);
     } else {

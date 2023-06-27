@@ -10,8 +10,8 @@
                 <p><strong>Temperatura:</strong> {{ clinicalStory.fever }}°</p>
                 <p><strong>Presión:</strong> {{ clinicalStory.bloodPressure }}</p>
 
-                <ng-container *ngFor="let field of clinicalStory.dynamicFields" class="form-group">
-                    <p><strong>{{ field.key }}: </strong>{{ field.value }}</p>
+                <ng-container *ngFor="let field of clinicalStory | excludeFieldsPipe" class="form-group">
+                    <p><strong>{{ field[0] }}: </strong>{{ field[1] }}</p>
                 </ng-container>
             </div>
         </div>

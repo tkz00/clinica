@@ -30,6 +30,7 @@ import { SurveyComponent } from './pages/turnos/survey/survey.component';
 import { ClinicalStoryModalComponent } from './pages/turnos/clinical-story-modal/clinical-story-modal.component';
 import { ClinicalStoryComponent } from './pages/clinical-story/clinical-story.component';
 import { PatientListComponent } from './pages/patient-list/patient-list.component';
+import { ExcludeFieldsPipePipe } from './pipes/exclude-fields-pipe.pipe';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { PatientListComponent } from './pages/patient-list/patient-list.componen
     SurveyComponent,
     ClinicalStoryModalComponent,
     ClinicalStoryComponent,
-    PatientListComponent
+    PatientListComponent,
+    ExcludeFieldsPipePipe
   ],
   imports: [
     BrowserModule,

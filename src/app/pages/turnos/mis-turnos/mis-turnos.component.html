@@ -49,13 +49,13 @@
 
                   <!-- BOTÓNES ESPECIALISTA -->
                   <ng-container *ngIf="isEspecialista">
-                      <button *ngIf="turno.data.estado === 'pendiente'" class="btn btn-link" (click)="cancelTurn(turno.id)" placement="top" ngbTooltip="Cancelar">
+                      <button *ngIf="turno.data.estado === 'aceptado'" class="btn btn-link" (click)="cancelTurn(turno.id)" placement="top" ngbTooltip="Cancelar">
                           <i class="bi bi-x-circle" style="color: red;"></i>
                       </button>
                       <button *ngIf="turno.data.estado === 'pendiente'" class="btn btn-link" (click)="rejectTurn(turno.id)" placement="top" ngbTooltip="Rechazar turno">
-                        <i class="bi bi-eraser" style="color: red;"></i>
+                        <i class="bi bi-x-circle" style="color: red;"></i>
                       </button>
-                      <button *ngIf="turno.data.estado !== 'cancelado' && turno.data.estado !== 'realizado' && turno.data.estado !== 'rechazado'" class="btn btn-link" (click)="acceptTurn(turno.id)" placement="top" ngbTooltip="Aceptar turno">
+                      <button *ngIf="turno.data.estado === 'pendiente'" class="btn btn-link" (click)="acceptTurn(turno.id)" placement="top" ngbTooltip="Aceptar turno">
                         <i class="bi bi-check-circle" style="color: blue;"></i>
                       </button>
                       <button *ngIf="turno.data.estado === 'aceptado'" class="btn btn-link" (click)="openClinicalStory(turno.id)" placement="top" ngbTooltip="Finalizar Turno">

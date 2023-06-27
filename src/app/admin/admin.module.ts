@@ -10,6 +10,7 @@ import { RegistroAdminComponent } from './pages/registro-admin/registro-admin.co
 import { TurnosComponent } from './pages/turnos/turnos.component';
 import { UserListComponent } from './pages/user-list/user-list.component';
 import { AdminFooterComponent } from './components/admin-footer/admin-footer.component';
+import { ReportsComponent } from './pages/reports/reports.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { AdminFooterComponent } from './components/admin-footer/admin-footer.com
     RegistroAdminComponent,
     TurnosComponent,
     UserListComponent,
-    AdminFooterComponent
+    AdminFooterComponent,
+    ReportsComponent
   ],
   imports: [
     CommonModule,

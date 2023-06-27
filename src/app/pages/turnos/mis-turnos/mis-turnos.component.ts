@@ -164,7 +164,7 @@ export class MisTurnosComponent {
 
   async rateTurn(id: string) {
     this.selectedTurnId = id;
-    this.clinicalStoryModalOpen = true;
+    this.rateTurnModalOpen = true;
   }
 
   onRatingSubmitted(ratingData: { rating: number; comment: string }) {
@@ -202,7 +202,8 @@ export class MisTurnosComponent {
         turno.data.especialista.nombre.toLowerCase().includes(this.searchValue.toLowerCase()) ||
         turno.data.especialista.apellido.toLowerCase().includes(this.searchValue.toLowerCase()) ||
         turno.data.especialista.email.toLowerCase().includes(this.searchValue.toLowerCase()) ||
-        getClinicalStoryMatch(turno.data.clinicalStory, this.searchValue.toLowerCase())
+        (turno.data.clinicalStory &&
+          getClinicalStoryMatch(turno.data.clinicalStory, this.searchValue.toLowerCase()))
       );
     }
     else {

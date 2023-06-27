@@ -1,0 +1,64 @@
+<div class="reports-page">
+    <div [hidden]="isLoading" class="reports-container">
+
+      <div class="header">
+        <h2>Estadisticas</h2>
+
+        <button (click)="downloadPDF()" class="btn btn-danger">Descargar PDF <i class="bi bi-file-pdf"></i></button>
+      </div>
+
+      <div class="row">
+        <div class="loginLogContainer col-md-4">
+          <h4>Ingresos</h4>
+        
+          <div class="logs-table">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Email usuario</th>
+                  <th>Fecha y hora</th>
+                </tr>
+              </thead>
+        
+              <tbody>
+                <tr *ngFor="let log of loginLogs">
+                  <td>{{ log.email }}</td>
+                  <td>{{ log.signInTime.toDate() | date:'dd/MM/YYYY H:m' }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="chartsContainer col-md-8">
+          <h4>Estadisticas</h4>
+
+          <div class="charts">
+            <div id="byEspecialidadChartDiv">
+              <canvas #byEspecialidadChart width="600" height="300"></canvas>
+            </div>
+
+            <div id="byDayChartDiv">
+              <canvas #byDayChart width="600" height="300"></canvas>
+            </div>
+
+            <div id="byEspecialistaChartDiv">
+              <canvas #byEspecialistaChart width="600" height="300"></canvas>
+            </div>
+
+            <div id="finalizadoChartDiv">
+              <canvas #finalizadoChart width="600" height="300"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ng-container *ngIf="isLoading">
+        <div class="spinner-container">
+          <div class="spinner"></div>
+        </div>
+    </ng-container>
+
+    <app-admin-footer style="width: 100%;"></app-admin-footer>
+</div>

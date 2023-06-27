@@ -1,11 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { slideInOutFromBottomAnimation } from '../../animations';
 
 @Component({
   selector: 'app-registro',
   templateUrl: './registro.component.html',
-  styleUrls: ['./registro.component.scss']
+  styleUrls: ['./registro.component.scss'],
+  animations: [slideInOutFromBottomAnimation]
 })
-export class RegistroComponent {
+export class RegistroComponent implements OnInit {
+
+  ngOnInit() { }
+
   public currentComponent: string | undefined;
   isLoading = false;
 

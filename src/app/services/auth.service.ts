@@ -1,7 +1,13 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { UserService } from './user.service';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, take } from 'rxjs';
+
+import { environment } from 'src/enviorments/environment';
+import firebase from "firebase/compat/app";
+import "firebase/auth";
+import { LoggerService } from './logger.service';
+import Swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +22,8 @@ export class AuthService {
 
   constructor(
     private af: AngularFireAuth,
-    private userService: UserService
+    private userService: UserService,
+    private loggerService: LoggerService
   ) { }
 
   async login(email: string, password: string) {
@@ -36,26 +43,35 @@ export class AuthService {
           throw new Error('Usuario paciente no ha sido verificado, por favor revise su mail (revisar casilla de spam).');
         }
 
+        this.loggerService.registerLogin(e.user?.uid!, email);
+
         this.isLoggedInSubject.next(true);
       }
     );
   }
 
   async register(email: string, password: string): Promise<string> {
-    // if (this.af.user) {
-    //   this.af.currentUser.then(async (user) => {
-    //     if (user?.email == 'admin@admin.com') {
-    //       const newUserId = await this.af.createUserWithEmailAndPassword(email, password);
-    //       this.af.signInWithEmailAndPassword('admin@admin.com', '111111');
-    //       return newUserId;
-    //     }
-    //     return (await this.af.createUserWithEmailAndPassword(email, password)).user?.uid;
-    //   });
-    // }
-    // return (await this.af.createUserWithEmailAndPassword(email, password)).user?.uid!;
-
-    return (await this.af.createUserWithEmailAndPassword(email, password)).user?.uid!;
+    return new Promise<string>((resolve, reject) => {
+      this.isLoggedIn$.pipe(take(1)).subscribe(async (isLoggedIn) => {
+        try {
+          if (isLoggedIn) {
+            firebase.initializeApp(environment.firebase, 'Secondary');
+            const auth = firebase.auth();
+            const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+            resolve(userCredential.user?.uid!);
+          } else {
+            const userCredential = await this.af.createUserWithEmailAndPassword(email, password);
+            this.login(email, password);
+            this.loggerService.registerLogin(userCredential.user?.uid!, email);
+            resolve(userCredential.user?.uid!);
+          }
+        } catch (error) {
+          reject(error);
+        }
+      });
+    });
   }
+
 
   logout() {
     this.af.signOut();
