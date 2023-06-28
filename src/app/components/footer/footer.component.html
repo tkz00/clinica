@@ -1,6 +1,7 @@
 <footer class="footer">
     <div class="container">
       <div class="row">
+
         <ng-container *ngIf="!isAdmin && !isEspecialista">
           <div class="col-md-3">
               <h3>Crear turno</h3>
@@ -9,12 +10,23 @@
           </div>
           <div class="col-md-1"></div>
         </ng-container>
+
+        <div class="col-md-3">
+            <h3>Ver turnos</h3>
+            <p></p>
+            <button class="btn btn-primary" routerLink="/mis-turnos">Mis turnos</button>
+        </div>
+        <div class="col-md-1"></div>
+
+        <ng-container *ngIf="isEspecialista">
           <div class="col-md-3">
-              <h3>Ver turnos</h3>
-              <p></p>
-              <button class="btn btn-primary" routerLink="/mis-turnos">Mis turnos</button>
-          </div>
-          <div class="col-md-1"></div>
+            <h3>Ver pacientes</h3>
+            <p></p>
+            <button class="btn btn-primary" routerLink="/pacientes">Mis pacientes</button>
+        </div>
+        <div class="col-md-1"></div>
+        </ng-container>
+
         <div class="col-md-3" *ngIf="isAdmin">
             <h3>Accede al backoffice</h3>
             <p></p>

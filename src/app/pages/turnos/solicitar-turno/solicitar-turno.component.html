@@ -30,11 +30,9 @@
                       class="img-fluid"
                       [src]="especialidad.imgUrl"
                       [alt]="especialidad.name">
-                  <!-- {{ especialidad }} -->
               </div>
             </div>
 
-            <!-- <div *ngIf="this.selectedEspecialidad"> -->
             <div>
               <label>Especialista (solo aparecen los verificados y habilitados):</label>
               <input type="text" (input)="onEspecialistaInputChange($event)" placeholder="Busque por especialista...">
@@ -45,7 +43,7 @@
                        class="img-fluid"
                        [src]="especialista.imagen"
                        [alt]="especialista.nombre">
-                  <p>{{ especialista.nombre + " " + especialista.apellido }}</p>
+                  <p>{{ especialista | namePipe }}</p>
                   </div>
               </div>
               <span *ngIf="filteredEspecialistas.length <= 0">No hay especialistas disponibles ahora mismo</span>
@@ -80,7 +78,6 @@
                 </ng-container>
             </div>
 
-            <!-- <button *ngIf="!isLoading" type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">Login</button> -->
             <button type="submit" class="btn btn-primary submit-button" [disabled]="turnoForm.invalid">Solicitar turno</button>
         </form>
     </div>

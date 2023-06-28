@@ -11,42 +11,41 @@
                 <button class="btn btn-success" routerLink="/admin/registro-admin">Crear administrador</button>
             </div>
         </div>
+
         <ng-container *ngIf="!isLoading">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>Tipo</th>
-                        <th>Nombre</th>
-                        <th>Apellido</th>
-                        <th>Edad</th>
-                        <th>DNI</th>
-                        <th>Mail</th>
-                        <th>Habilitado</th>
-                        <th>Historia de usuario</th>
-                        <!-- <th>Email Verificado</th> -->
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let user of users">
-                        <td>{{ user.type }}</td>
-                        <td>{{ user.nombre }}</td>
-                        <td>{{ user.apellido }}</td>
-                        <td>{{ user.edad }}</td>
-                        <td>{{ user.dni }}</td>
-                        <td>{{ user.email }}</td>
-                        <td style="text-align: center;" [ngStyle]="user.type !== 'especialista' ? { 'background-color': '#b3b3b3' } : {}">
-                            <input *ngIf="user.type == 'especialista'" type="checkbox" [(ngModel)]="user.enabled" (ngModelChange)="onEnabledChange($event, user.id)">
-                        </td>
-                        <td style="text-align: center;" [ngStyle]="user.type !== 'paciente' ? { 'background-color': '#b3b3b3' } : {}">
-                            <button *ngIf="user.type == 'paciente'" [routerLink]="'/historia-clinica/' + user.id" class="btn btn-primary">Ver historia de usuario</button>
-                        </td>
-                        <!-- <td>
-                            <input type="checkbox" [(ngModel)]="user.verified">
-                        </td> -->
-                    </tr>
-                </tbody>
-            </table>
-            <button (click)="downloadUsersExcel()" class="btn btn-success">Descargar excel de usuarios</button>
+            
+            <div class="users-container row">
+                <div class="col-md-3 mb-4" *ngFor="let user of users">
+                  <div class="card">
+                    <div class="card-header">
+                        <img class="card-img-top" [src]="user.images[0]" alt="Card image cap">
+                    </div>
+                    <div class="card-body">
+                      <h5 class="card-title">{{ user.nombre }} {{ user.apellido }}</h5>
+                      <p class="card-text">
+                        <strong>Tipo:</strong> {{ user.type }}<br>
+                        <strong>Edad:</strong> {{ user.edad }}<br>
+                        <strong>DNI:</strong> {{ user.dni }}<br>
+                        <strong>Mail:</strong> {{ user.email }}
+                      </p>
+                      <div *ngIf="user.type === 'especialista'" class="text-center mb-1">
+                        <div>
+                            <strong>Habilitado:</strong>
+                            <input type="checkbox" [(ngModel)]="user.enabled" (ngModelChange)="onEnabledChange($event, user.id)">
+                        </div>
+                      </div>
+                      <div *ngIf="user.type === 'paciente'" class="text-center mb-1">
+                        <button [routerLink]="'/historia-clinica/' + user.id" class="btn btn-primary">Ver historia de usuario</button>
+                      </div>
+                      <div *ngIf="user.type !== 'admin'" class="text-center mb-1">
+                        <button (click)="downloadUserTurns(user)" class="btn btn-primary">Descargar turnos</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+
+            <button (click)="downloadUsersExcel()" class="btn btn-success mt-4 download-button">Descargar excel de usuarios <i class="fa fa-file-excel-o"></i></button>
         </ng-container>
 
         <ng-container *ngIf="isLoading">
@@ -55,7 +54,7 @@
             </div>
         </ng-container>
     </div>
-
-    <app-admin-footer style="width: 100%;"></app-admin-footer>
 </div>
+
+<app-admin-footer style="width: 100%;"></app-admin-footer>
   

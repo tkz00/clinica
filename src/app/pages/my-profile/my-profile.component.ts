@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
+import { PdfService } from 'src/app/services/pdf.service';
+import { TurnosService } from 'src/app/services/turnos.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -15,12 +17,18 @@ export class MyProfileComponent implements OnInit {
   saturdayHours: string[] = ['8am', '9am', '10am', '11am', '12pm', '1pm', '2pm']
   availability: { [day: string]: string[] } = {};
 
+  turnos: any[];
+  especialidades: any[];
+  selectedEspecialidad: string;
+
   constructor(
     private authService: AuthService,
-    private usersService: UserService
+    private usersService: UserService,
+    private turnosService: TurnosService,
+    private pdfService: PdfService
   ) { }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.user = this.authService.usuarioDB;
     this.user.images = [];
 
@@ -37,6 +45,9 @@ export class MyProfileComponent implements OnInit {
     if (this.user.horarios) {
       this.availability = this.user.horarios;
     }
+
+    this.turnos = await this.turnosService.getTurnosByPacienteId(this.authService.usuarioDB.id);
+    this.especialidades = [...new Set(this.turnos.map(turno => turno.data.especialidad.name))];
   }
 
   toggleAvailability(day: string, hour: string) {
@@ -58,4 +69,20 @@ export class MyProfileComponent implements OnInit {
     return this.availability[day] && this.availability[day].includes(hour);
   }
 
+  async downloadClinicalStory() {
+    let clinicalStory: any[] = [];
+
+    this.turnos.filter((turn: { data: any; }) => turn.data.clinicalStory && (this.selectedEspecialidad !== 'todas' ? (this.selectedEspecialidad === turn.data.especialidad.name) : true) && Array.isArray(turn.data.clinicalStory)).forEach((turn: { data: any; }) => {
+      turn.data.clinicalStory.forEach((story: any) => {
+        story.date = turn.data.fechaHora;
+        story.review = turn.data.review;
+        clinicalStory.push(story);
+      });
+    });
+
+    clinicalStory.sort((a, b) => b.date.toDate().getTime() - a.date.toDate().getTime());
+
+    // console.log(clinicalStory);
+    this.pdfService.downloadClinicalStory(`${this.authService.usuarioDB.apellido}, ${this.authService.usuarioDB.nombre}`, clinicalStory);
+  }
 }

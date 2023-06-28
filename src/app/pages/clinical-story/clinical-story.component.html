@@ -1,14 +1,14 @@
 <div class="clinical-story-page">
-    <div class="clinical-story-container">
-        <h2><strong>Historia clinica de </strong>{{ userToShow.apellido + ", " + userToShow.nombre }}</h2>
+    <div *ngIf="!isLoading" class="clinical-story-container">
+        <h2><strong>Historia clínica de </strong>{{ userToShow | formalName }}</h2>
         <div class="clinical-stories">
             <div *ngFor="let clinicalStory of userClinicalStory" class="clinical-story">
                 <p><strong>Fecha:</strong> {{ clinicalStory.date.toDate() | date:'dd/MM/YYYY' }}</p>
 
-                <p><strong>Altura:</strong> {{ clinicalStory.height }}cm</p>
-                <p><strong>Peso:</strong> {{ clinicalStory.weight }}kg</p>
-                <p><strong>Temperatura:</strong> {{ clinicalStory.fever }}°</p>
-                <p><strong>Presión:</strong> {{ clinicalStory.bloodPressure }}</p>
+                <p><strong>Altura:</strong> {{ clinicalStory.altura }}cm</p>
+                <p><strong>Peso:</strong> {{ clinicalStory.peso }}kg</p>
+                <p><strong>Temperatura:</strong> {{ clinicalStory.fiebre }}°</p>
+                <p><strong>Presión:</strong> {{ clinicalStory.presionSanguinea }}</p>
 
                 <ng-container *ngFor="let field of clinicalStory | excludeFieldsPipe" class="form-group">
                     <p><strong>{{ field[0] }}: </strong>{{ field[1] }}</p>
@@ -16,6 +16,13 @@
             </div>
         </div>
     </div>
+
+    
+    <ng-container *ngIf="isLoading">
+        <div class="spinner-container">
+          <div class="spinner"></div>
+        </div>
+    </ng-container>
 
     <app-footer style="width: 100%;"></app-footer>
 </div>

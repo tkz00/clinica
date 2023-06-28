@@ -14,6 +14,8 @@ export class ClinicalStoryComponent implements OnInit {
   userTurns: any;
   userClinicalStory: any[] = [];
 
+  isLoading = false;
+
   constructor(
     private route: ActivatedRoute,
     private authService: AuthService,
@@ -22,6 +24,8 @@ export class ClinicalStoryComponent implements OnInit {
   ) { }
 
   async ngOnInit() {
+    this.isLoading = true;
+
     if (this.authService.usuarioDB.type === 'paciente') {
       this.userToShow = this.authService.usuarioDB;
       this.userTurns = await this.turnosService.getTurnosByPacienteId(this.authService.usuarioDB.id);
@@ -40,6 +44,6 @@ export class ClinicalStoryComponent implements OnInit {
 
     this.userClinicalStory.sort((a, b) => a.date.toDate().getTime() - b.date.toDate().getTime());
 
-    console.log(this.userClinicalStory);
+    this.isLoading = false;
   }
 }

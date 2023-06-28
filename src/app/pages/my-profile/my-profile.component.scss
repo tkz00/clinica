@@ -43,6 +43,17 @@
                 height: 100%; /* Bootstrap handles width already */
                 object-fit: cover; /* or 'contain' if you want stretch instead of crop */
             }
+
+            .controls {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-start;
+
+                select {
+                    border-color: black;
+                }
+            }
         }
     }
 
@@ -50,9 +61,9 @@
         width: 100%;
         border-collapse: collapse;
 
-        .available-cell {
-            background: #73be48;
-        }
+        // .available-cell {
+        //     background: #73be48;
+        // }
     }
       
     .availability-grid th,
@@ -60,15 +71,5 @@
         padding: 5px;
         text-align: center;
         border: 1px solid #ccc;
-    }
-      
-    .available {
-        display: block;
-        width: 8px;
-        height: 8px;
-        background-color: green;
-        border-radius: 50%;
-        margin: 0 auto;
-    }
-      
+    } 
 }

@@ -1,9 +1,5 @@
-PARA EVITAR LOGIN CUANDO SE REGISTRA:
-provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideFirebaseApp(() => initializeApp(environment.firebase, 'Secondary')),
-
 Hacer carousel para las imagenes en la sección "Mi Perfil"
 
 No mostrar horarios de especialistas que hayan sido marcados como disponibles pero estén ocupados por turnos?
 
-El admin se desloguea cuando crea un usuario (punto 1)
+Seleccionador de fechas para los reportes del backend

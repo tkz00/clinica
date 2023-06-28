@@ -1,21 +1,21 @@
 <div class="survey-modal">
     <div class="survey-modal-content">
-      <h2>Historia clinica</h2>
+      <h2>Historia clínica</h2>
       <div class="form-group">
-        <label for="height">Altura</label>
-        <input type="number" class="form-control" id="height" [(ngModel)]="height" placeholder="Altura">
+        <label for="altura">Altura</label>
+        <input type="number" class="form-control" id="altura" [(ngModel)]="altura" placeholder="Altura">
       </div>
       <div class="form-group">
-        <label for="weight">Peso</label>
-        <input type="number" class="form-control" id="weight" [(ngModel)]="weight" placeholder="Peso">
+        <label for="peso">Peso</label>
+        <input type="number" class="form-control" id="peso" [(ngModel)]="peso" placeholder="Peso">
       </div>
       <div class="form-group">
-        <label for="fever">Temperatura</label>
-        <input type="number" class="form-control" id="fever" [(ngModel)]="fever" placeholder="Temperatura">
+        <label for="fiebre">Temperatura</label>
+        <input type="number" class="form-control" id="fiebre" [(ngModel)]="fiebre" placeholder="Temperatura">
       </div>
       <div class="form-group">
-        <label for="bloodPressure">Presión arterial</label>
-        <input type="text" class="form-control" id="bloodPressure" [(ngModel)]="bloodPressure" placeholder="Presión arterial">
+        <label for="presionSanguinea">Presión arterial</label>
+        <input type="text" class="form-control" id="presionSanguinea" [(ngModel)]="presionSanguinea" placeholder="Presión arterial">
       </div>
       <div class="form-group" *ngFor="let field of dynamicFields; let i = index;">
         <div class="dynamic-fields">

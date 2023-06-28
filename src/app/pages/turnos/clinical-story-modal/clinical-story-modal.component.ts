@@ -9,20 +9,20 @@ export class ClinicalStoryModalComponent {
   @Output() surveySubmitted: EventEmitter<any> = new EventEmitter<any>();
   @Output() onCloseModal: EventEmitter<any> = new EventEmitter<any>();
 
-  height: number;
-  weight: number;
-  fever: boolean;
-  bloodPressure: string;
+  altura: number;
+  peso: number;
+  fiebre: number;
+  presionSanguinea: string;
   dynamicFields: { key: string, value: any }[] = [];
 
   constructor() { }
 
   submitSurvey() {
     const surveyData: { [key: string]: any } = {
-      height: this.height,
-      weight: this.weight,
-      fever: this.fever,
-      bloodPressure: this.bloodPressure
+      altura: this.altura,
+      peso: this.peso,
+      fiebre: this.fiebre,
+      presionSanguinea: this.presionSanguinea
     };
 
     this.dynamicFields.forEach(field => {

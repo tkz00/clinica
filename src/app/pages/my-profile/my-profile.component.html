@@ -6,7 +6,6 @@
                 <h2 class="card-title">Mi Perfil</h2>
                 <div class="row">
                   <div class="col-md-4">
-                      
                     <ngb-carousel>
                       <ng-template ngbSlide *ngFor="let image of user.images">
                         <div class="picsum-img-wrapper">
@@ -14,20 +13,30 @@
                         </div>
                       </ng-template>
                     </ngb-carousel>
-
                   </div>
 
                   <div class="col-md-8">
-                    <!-- <h6 class="card-subtitle mb-2 text-muted"><strong>Nombre:</strong> {{ user.nombre + " " + user.apellido }}</h6> -->
                     <p class="card-text">
-                        <strong>Nombre:</strong> {{ user.nombre + " " +  user.apellido }} <br>
+                        <strong>Nombre:</strong> {{ user | namePipe }} <br>
                         <strong>Email:</strong> {{ user.email }}<br>
                         <strong>DNI:</strong> {{ user.dni }}<br>
                         <strong>Edad:</strong> {{ user.edad }}<br>
                         <strong>Obra social:</strong> {{ user.obraSocial }}<br>
                     </p>
-                    <div *ngIf="user.type === 'paciente'">
-                      <button routerLink="/historia-clinica" class="btn btn-primary">Ver historia clinica</button>
+                    <div *ngIf="user.type === 'paciente'" class="controls">
+                      <button routerLink="/historia-clinica" class="btn btn-primary">Ver historia clínica</button>
+
+                      <div>
+                        <button (click)="downloadClinicalStory()" class="btn btn-danger">Descargar historia clínica <i class="bi bi-file-pdf"></i></button>
+
+                        <div>
+                          <label for="selectEspecialidad">Filtrar por especialidad:</label>
+                          <select id="selectEspecialidad" class="form-select" aria-label="Filtrar por especialidad" [(ngModel)]="selectedEspecialidad">
+                            <option selected value="todas">Todas</option>
+                            <option *ngFor="let especialidad of especialidades" [value]="especialidad">{{ especialidad }}</option>
+                          </select>
+                        </div>
+                      </div>
                     </div>
                     <div *ngIf="user.type === 'especialista'">
                       <button routerLink="/pacientes" class="btn btn-primary">Ver mis pacientes</button>
@@ -48,7 +57,7 @@
                       <tbody>
                         <tr *ngFor="let hour of hoursOfDay">
                           <th>{{ hour }}</th>
-                          <td *ngFor="let day of daysOfWeek" [class.available-cell]="isAvailable(day, hour)">
+                          <td *ngFor="let day of daysOfWeek" [availableDateTime]="isAvailable(day, hour)">
                             <label *ngIf="day !== 'Sábado' || (day === 'Sábado' && saturdayHours.includes(hour))">
                               <input type="checkbox" [checked]="isAvailable(day, hour)" (change)="toggleAvailability(day, hour)" [value]="hour">
                             </label>

@@ -1,98 +1,3 @@
-<!-- <div class="registration-container">
-    <ng-container *ngIf="!isLoading">
-        <div class="registration-form">
-        <h2>Registro paciente</h2>
-        <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <input type="text" id="nombre" formControlName="nombre" placeholder="Nombre" class="form-control">
-                            <div *ngIf="registrationForm.controls['nombre'].invalid && (registrationForm.controls['nombre'].touched || submitted)" class="text-danger">
-                                <div *ngIf="registrationForm.controls['nombre'].hasError('required')">*</div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <input type="email" id="email" formControlName="email" placeholder="Email" class="form-control">
-                            <div *ngIf="registrationForm.controls['email'].invalid && (registrationForm.controls['email'].touched || submitted)" class="text-danger">
-                                <div *ngIf="registrationForm.controls['email'].hasError('required')">*</div>
-                                <div *ngIf="registrationForm.controls['email'].hasError('email')">Email con formato inválido</div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <input type="number" id="edad" formControlName="edad" placeholder="Edad" class="form-control">
-                            <div *ngIf="registrationForm.controls['edad'].invalid && (registrationForm.controls['edad'].touched || submitted)" class="text-danger">
-                                <div *ngIf="registrationForm.controls['edad'].hasError('required')">*</div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <input type="text" id="obraSocial" formControlName="obraSocial" placeholder="Obra Social" class="form-control">
-                            <div *ngIf="registrationForm.controls['obraSocial'].invalid && (registrationForm.controls['obraSocial'].touched || submitted)" class="text-danger">
-                                <div *ngIf="registrationForm.controls['obraSocial'].hasError('required')">*</div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <input type="text" id="apellido" formControlName="apellido" placeholder="Apellido" class="form-control">
-                            <div *ngIf="registrationForm.controls['apellido'].invalid && (registrationForm.controls['apellido'].touched || submitted)" class="text-danger">
-                                <div *ngIf="registrationForm.controls['apellido'].hasError('required')">*</div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <input type="password" id="password" formControlName="password" placeholder="Contraseña" class="form-control">
-                            <div *ngIf="registrationForm.controls['password'].invalid && (registrationForm.controls['password'].touched || submitted)" class="text-danger">
-                                <div *ngIf="registrationForm.controls['password'].hasError('required')">*</div>
-                                <div *ngIf="registrationForm.controls['password'].hasError('minlength')">La contraseña debe tener al menos 6 caracteres</div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <input type="number" id="dni" formControlName="dni" placeholder="DNI" class="form-control">
-                            <div *ngIf="registrationForm.controls['dni'].invalid && (registrationForm.controls['dni'].touched || submitted)" class="text-danger">
-                                <div *ngIf="registrationForm.controls['dni'].hasError('required')">*</div>
-                                <div *ngIf="registrationForm.controls['dni'].hasError('pattern')">El DNI debe ser un numero de 7 u 8 dígitos</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="form-group col-md-6">
-                            <label for="imagen1">Imagen 1:</label>
-                            <input (change)="handleFileInputImagen1($event)" type="file" accept="image/*" id="imagen1" class="form-control">
-                            <div *ngIf="registrationForm.controls['imagen1'].invalid && (registrationForm.controls['imagen1'].touched || submitted)" class="text-danger">
-                                <div *ngIf="registrationForm.controls['imagen1'].hasError('required')">*</div>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group col-md-6">
-                            <label for="imagen2">Imagen 2:</label>
-                            <input type="file" (change)="handleFileInputImagen2($event)" accept="image/*" id="imagen2" class="form-control">
-                            <div *ngIf="registrationForm.controls['imagen2'].invalid && (registrationForm.controls['imagen2'].touched || submitted)" class="text-danger">
-                                <div *ngIf="registrationForm.controls['imagen2'].hasError('required')">*</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <button type="submit" class="btn btn-primary">Registrarse</button>
-                    <div>
-                        <p>¿Deseas registrarte como especialista? <a routerLink="/registro-especialista">¡Has click aquí!</a></p>
-                    </div>
-                </div>
-        </form>
-        </div>
-    </ng-container>
-
-    <ng-container *ngIf="isLoading">
-        <div class="spinner-container">
-          <div class="spinner"></div>
-        </div>
-    </ng-container>
-</div> -->
 <h2 style="text-align: center;">Registro Paciente</h2>
 <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
     <div class="row">
@@ -179,7 +84,7 @@
 
         <button type="submit" class="btn btn-primary">Registrarse</button>
         <div>
-            <p>¿Deseas registrarte como especialista? <a (click)="changePage()">¡Has click aquí!</a></p>
+            <p>¿Deseas registrarte como especialista? <a link (click)="changePage()">¡Has click aquí!</a></p>
         </div>
     </div>
 </form>

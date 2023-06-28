@@ -31,6 +31,11 @@ import { ClinicalStoryModalComponent } from './pages/turnos/clinical-story-modal
 import { ClinicalStoryComponent } from './pages/clinical-story/clinical-story.component';
 import { PatientListComponent } from './pages/patient-list/patient-list.component';
 import { ExcludeFieldsPipePipe } from './pipes/exclude-fields-pipe.pipe';
+import { NamePipe } from './pipes/name.pipe';
+import { FormalNamePipe } from './pipes/formal-name.pipe';
+import { HoverHighlightDirective } from './directives/hover-highlight.directive';
+import { LinkDirective } from './directives/link.directive';
+import { AvailableDateTimeDirective } from './directives/available-date-time.directive';
 
 @NgModule({
   declarations: [
@@ -51,7 +56,12 @@ import { ExcludeFieldsPipePipe } from './pipes/exclude-fields-pipe.pipe';
     ClinicalStoryModalComponent,
     ClinicalStoryComponent,
     PatientListComponent,
-    ExcludeFieldsPipePipe
+    ExcludeFieldsPipePipe,
+    NamePipe,
+    FormalNamePipe,
+    HoverHighlightDirective,
+    LinkDirective,
+    AvailableDateTimeDirective,
   ],
   imports: [
     BrowserModule,

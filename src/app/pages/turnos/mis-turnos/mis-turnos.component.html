@@ -17,8 +17,8 @@
             </thead>
             <tbody>
               <tr *ngFor="let turno of filteredTurnos" [id]="'turn-' + turno.id">
-                <td>{{ turno.data.paciente.nombre + " " + turno.data.paciente.apellido  }}</td>
-                <td>{{ turno.data.especialista.nombre + " " + turno.data.especialista.apellido }}</td>
+                <td>{{ turno.data.paciente | namePipe }}</td>
+                <td>{{ turno.data.especialista | namePipe }}</td>
                 <td>{{ turno.data.especialidad.name }}</td>
                 <td class="dateTime">{{ turno.data.fechaHora.toDate() | date:'hh:mm dd/MM/YYYY' }}</td>
                 <td>

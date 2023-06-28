@@ -1,4 +1,4 @@
-# Clinica
+# Clínica
 
 Este documento contiene la descripción y modo de utilizar la aplicación.
 
@@ -8,7 +8,7 @@ Si se desea correr la aplicación en modo de desarrollo se debe ejecutar el coma
 
 # Sitio web
 
-La aplicación está desplegada en este link [Clinica](https://clinica-9f1c7.web.app).
+La aplicación está desplegada en este link [Clínica](https://clinica-9f1c7.web.app).
 
 ## Página principal
 

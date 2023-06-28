@@ -1,32 +1,27 @@
 <div class="patient-list-page">
     <div class="table-container">
         <ng-container *ngIf="!isLoading">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>Tipo</th>
-                        <th>Nombre</th>
-                        <th>Apellido</th>
-                        <th>Edad</th>
-                        <th>DNI</th>
-                        <th>Mail</th>
-                        <th>Historia de usuario</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let user of users">
-                        <td>{{ user.type }}</td>
-                        <td>{{ user.nombre }}</td>
-                        <td>{{ user.apellido }}</td>
-                        <td>{{ user.edad }}</td>
-                        <td>{{ user.dni }}</td>
-                        <td>{{ user.email }}</td>
-                        <td style="text-align: center;" [ngStyle]="user.type !== 'paciente' ? { 'background-color': '#b3b3b3' } : {}">
-                            <button *ngIf="user.type == 'paciente'" [routerLink]="'/historia-clinica/' + user.id" class="btn btn-primary">Ver historia de usuario</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="users-container row">
+                <div class="col-md-3 mb-4" *ngFor="let user of users">
+                  <div class="card" appHoverHighlight>
+                    <div class="card-header">
+                        <img class="card-img-top" [src]="user.images[0]" alt="Card image cap">
+                    </div>
+                    <div class="card-body">
+                      <h5 class="card-title">{{ user | namePipe }}</h5>
+                      <p class="card-text">
+                        <strong>Tipo:</strong> {{ user.type }}<br>
+                        <strong>Edad:</strong> {{ user.edad }}<br>
+                        <strong>DNI:</strong> {{ user.dni }}<br>
+                        <strong>Mail:</strong> {{ user.email }}
+                      </p>
+                      <div *ngIf="user.type === 'paciente'" class="text-center mb-1">
+                        <button [routerLink]="'/historia-clinica/' + user.id" class="btn btn-primary">Ver historia de usuario</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
         </ng-container>
 
         <ng-container *ngIf="isLoading">
