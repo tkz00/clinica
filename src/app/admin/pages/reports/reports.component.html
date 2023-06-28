@@ -23,7 +23,7 @@
               <tbody>
                 <tr *ngFor="let log of loginLogs">
                   <td>{{ log.email }}</td>
-                  <td>{{ log.signInTime.toDate() | date:'dd/MM/YYYY H:m' }}</td>
+                  <td>{{ log.signInTime.toDate() | date:'dd/MM/YYYY H:mm' }}</td>
                 </tr>
               </tbody>
             </table>

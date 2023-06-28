@@ -5,7 +5,7 @@
                 <div class="col-md-3 mb-4" *ngFor="let user of users">
                   <div class="card" appHoverHighlight>
                     <div class="card-header">
-                        <img class="card-img-top" [src]="user.images[0]" alt="Card image cap">
+                        <img class="card-img-top" [src]="user.imagen1" alt="Card image cap">
                     </div>
                     <div class="card-body">
                       <h5 class="card-title">{{ user | namePipe }}</h5>
@@ -13,7 +13,8 @@
                         <strong>Tipo:</strong> {{ user.type }}<br>
                         <strong>Edad:</strong> {{ user.edad }}<br>
                         <strong>DNI:</strong> {{ user.dni }}<br>
-                        <strong>Mail:</strong> {{ user.email }}
+                        <strong>Mail:</strong> {{ user.email }}<br>
+                        <span *ngFor="let turn of user.turns"><strong>{{ turn.data.fechaHora.toDate() | date:'dd/MM/YYYY h:mm a' }}:</strong> {{ turn.data.review }} <br></span>
                       </p>
                       <div *ngIf="user.type === 'paciente'" class="text-center mb-1">
                         <button [routerLink]="'/historia-clinica/' + user.id" class="btn btn-primary">Ver historia de usuario</button>
