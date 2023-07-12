@@ -40,6 +40,10 @@ export class TurnosService {
     return (await this.getTurnos()).filter(turno => turno.data['especialista'].id === id);
   }
 
+  async getTurnoById(turnoId: string) {
+    return (await this.getTurnos()).find(turno => turno.id === turnoId);
+  }
+
   async cancelTurn(id: string, message: string) {
     const turnRef = doc(this.firestore2, 'turns', id);
     await updateDoc(turnRef, {

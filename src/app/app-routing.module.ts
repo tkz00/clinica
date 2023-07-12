@@ -13,6 +13,7 @@ import { AuthGuard } from './_helpers/auth.guard';
 import { PacienteAuthGuard } from './_helpers/pacienteAuth.guard';
 import { ClinicalStoryComponent } from './pages/clinical-story/clinical-story.component';
 import { PatientListComponent } from './pages/patient-list/patient-list.component';
+import { DetalleTurnoComponent } from './admin/pages/turnos/detalle-turno/detalle-turno.component';
 
 
 const routes: Routes = [
@@ -25,6 +26,7 @@ const routes: Routes = [
   { path: 'pacientes', component: PatientListComponent, canActivate: [AuthGuard] },
   { path: 'historia-clinica', component: ClinicalStoryComponent, canActivate: [AuthGuard] },
   { path: 'historia-clinica/:id', component: ClinicalStoryComponent, canActivate: [AuthGuard] },
+  { path: 'detalle-turno/:id', component: DetalleTurnoComponent, canActivate: [AuthGuard] },
   { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
 ];

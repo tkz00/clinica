@@ -11,6 +11,7 @@ import { TurnosComponent } from './pages/turnos/turnos.component';
 import { UserListComponent } from './pages/user-list/user-list.component';
 import { AdminFooterComponent } from './components/admin-footer/admin-footer.component';
 import { ReportsComponent } from './pages/reports/reports.component';
+import { DetalleTurnoComponent } from './pages/turnos/detalle-turno/detalle-turno.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { ReportsComponent } from './pages/reports/reports.component';
     TurnosComponent,
     UserListComponent,
     AdminFooterComponent,
-    ReportsComponent
+    ReportsComponent,
+    DetalleTurnoComponent
   ],
   imports: [
     CommonModule,

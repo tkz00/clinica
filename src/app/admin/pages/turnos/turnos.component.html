@@ -19,7 +19,7 @@
               <tr *ngFor="let turno of filteredTurnos" [id]="'turn-' + turno.id">
                 <td>{{ turno.data.paciente.nombre + " " + turno.data.paciente.apellido  }}</td>
                 <td>{{ turno.data.especialista.nombre + " " + turno.data.especialista.apellido }}</td>
-                <td>{{ turno.data.especialidad }}</td>
+                <td>{{ turno.data.especialidad.name }}</td>
                 <td class="dateTime">{{ turno.data.fechaHora.toDate() | date:'hh:mm dd/MM/YYYY' }}</td>
                 <td>
                     <span class="badge" [ngClass]="{
@@ -35,6 +35,10 @@
                 <td>
                     <button *ngIf="turno.data.estado === 'pendiente'" class="btn btn-link" (click)="cancelTurn(turno.id)">
                         <i class="bi bi-x-circle" style="color: red;"></i>
+                    </button>
+
+                    <button class="btn btn-link" [routerLink]="['/detalle-turno', turno.id]" placement="top" ngbTooltip="Ver reseña">
+                      <i class="bi bi-clipboard-pulse" style="color: green;"></i>
                     </button>
                   </td>
               </tr>
