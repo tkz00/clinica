@@ -1,6 +1,6 @@
 <div class="turn-detail-page">
     <div class="turn-container">
-        <h2>Detalle Turno</h2>
+        <h2>{{ turno ? "Editar turno" : "Detalle Turno"}}</h2>
 
         <ng-container *ngIf="!isLoading">
           <form [formGroup]="turnoForm" (ngSubmit)="saveAppointment()">

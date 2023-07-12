@@ -21,4 +21,13 @@ export class ImagesService {
       defer(() => fileRef.getDownloadURL())
     );
   }
+
+  uploadFile(file: File, name: string) : Observable<string> {
+    const fileRef = this.afStorage.ref(`/files/${name}`);
+    const task = this.afStorage.upload(`/files/${name}`, file);
+    return concat(
+      task.snapshotChanges().pipe(ignoreElements()),
+      defer(() => fileRef.getDownloadURL())
+    );
+  }
 }

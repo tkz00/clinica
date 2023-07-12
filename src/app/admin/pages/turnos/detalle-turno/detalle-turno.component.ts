@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Timestamp } from '@angular/fire/firestore';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { from } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { EspecialidadesService } from 'src/app/services/especialidades.service';
+import { ImagesService } from 'src/app/services/images.service';
 import { TurnosService } from 'src/app/services/turnos.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -23,9 +25,7 @@ export class DetalleTurnoComponent implements OnInit {
   selectedPaciente: any;
 
   selectedDateTime: Date;
-  // dateControl = new FormControl();
   
-  importantInfo: string = '';
   uploadedFiles: File[] = [];
 
   constructor(
@@ -36,6 +36,7 @@ export class DetalleTurnoComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
+    private imageService: ImagesService
   ) { }
 
   async ngOnInit(): Promise<void> {
@@ -67,7 +68,8 @@ export class DetalleTurnoComponent implements OnInit {
         // especialidad: ['', Validators.required],
         // especialista: ['', Validators.required],
         fechaHora: [this.selectedDateTime.toISOString().slice(0, 16), Validators.required],
-        informacion: ['']
+        informacion: [this.turno.data.informacion],
+        file: ['']
       });
     }
     else
@@ -75,7 +77,8 @@ export class DetalleTurnoComponent implements OnInit {
       this.turnoForm = this.formBuilder.group({
         paciente: ['', Validators.required],
         fechaHora: ['', Validators.required],
-        informacion: ['']
+        informacion: [''],
+        file: ['']
       });
     }
 
@@ -83,15 +86,22 @@ export class DetalleTurnoComponent implements OnInit {
   }
 
   onFileChange(event: any) {
-    this.uploadedFiles = Array.from(event.target.files);
+    const file = event.target.files[0];
+    this.turnoForm.get('file')!.setValue(file);
   }
 
-  saveAppointment() {
-    // Perform save logic here using the selectedPatient, selectedDateTime, importantInfo, and uploadedFiles data
-    console.log('Saving appointment...');
-    console.log('Patient:', this.selectedPaciente);
-    console.log('Date and Time:', this.selectedDateTime);
-    console.log('Important Info:', this.importantInfo);
-    console.log('Uploaded Files:', this.uploadedFiles);
+  async saveAppointment() {
+
+    this.turno.data.paciente = this.selectedPaciente;
+    this.turno.data.fechaHora = new Date(this.turnoForm.controls['fechaHora'].value);
+    this.turno.data.informacion = this.turnoForm.controls['informacion'].value;
+
+    const filePromise = this.imageService.uploadFile(this.turnoForm.get('file')!.value, this.turno.id + "_file").toPromise();
+
+    const fileUrl = await from(filePromise).toPromise();
+
+    this.turno.data.file = fileUrl;
+
+    await this.turnosService.updateTurn(this.turno);
   }
 }

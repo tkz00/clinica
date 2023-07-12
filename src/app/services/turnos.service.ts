@@ -96,4 +96,9 @@ export class TurnosService {
       clinicalStory: arrayUnion(clinicalStory)
     });
   }
+
+  async updateTurn(turn: any) {
+    const turnRef = doc(this.firestore2, 'turns', turn.id);
+    await updateDoc(turnRef, turn.data);
+  }
 }
